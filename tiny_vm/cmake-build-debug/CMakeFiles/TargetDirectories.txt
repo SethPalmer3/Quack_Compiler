@@ -1,0 +1,5 @@
+/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/tiny_vm.dir
+/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/test_roll.dir
+/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/test_builtins.dir
+/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/rebuild_cache.dir

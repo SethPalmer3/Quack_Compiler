@@ -37,6 +37,7 @@ class ClassNode(ASTNode):
         _master_record[f"{self.name.__str__()}"] = {}
         _master_record[f"{self.name.__str__()}"]['super'] = self.super_class.__str__()
         _master_record[f"{self.name.__str__()}"]['methods'] = {}
+        _master_record[f"{self.name.__str__()}"]['fields'] = {}
         for m in self.children:
             _master_record[f"{self.name}"]['methods'][f"{m.name}"] = m.infer_type(_master_record)
         return {}

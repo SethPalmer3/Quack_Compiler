@@ -1,4 +1,5 @@
 from . import *
+from type_inference import LCA
 
 class AssignmentNode(ASTNode):
     """Placeholder ... not defined in grammar yet"""
@@ -17,9 +18,19 @@ class AssignmentNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
 
         if self.assign_type:
+        # TODO: Add check for declared type and given rhs
+            new_type = LCA(self.assign_type, _master_record['temp'][f'{self.name}'])
+            self.assign_type = new_type
+
             return {self.name.__str__(): self.assign_type.__str__()}
-        elif self.name in _master_record.keys():
-            self.assign_type = _master_record["temp"]["params"][f"{self.name}"]
+        elif self.name in _master_record['temp'].keys():
+            # TODO: Add Least common ancestor 
+            self.assign_type = _master_record["temp"][f"{self.name}"]
+            calc_type = list(self.rhs.infer_type(_master_record).values())[0]
+            new_type = LCA(self.assign_type, calc_type, _master_record)
+            self.assign_type = new_type
+            _master_record["temp"][f"{self.name}"] = new_type
+            
             return {}
         else:
             assign_type = list(self.rhs.infer_type(_master_record).values())[0]

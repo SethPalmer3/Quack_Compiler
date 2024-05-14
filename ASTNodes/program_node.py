@@ -14,4 +14,6 @@ class ProgramNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
         for c in self.children:
             c.infer_type(_master_record)
+        if 'temp' in _master_record.keys():
+            del _master_record['temp']
         return _master_record

@@ -13,4 +13,7 @@ class VariableRefNode(ASTNode):
         return ZERO_SPACE_CHAR + self.name
 
     def infer_type(self, _master_record: dict = ...) -> dict:
-        return {}
+        if self.name in _master_record['temp']['local'].keys():
+            return {self.name: _master_record['temp']['local'][self.name]}
+        else:
+            raise ValueError(f"Cannot find variable {self.name}")

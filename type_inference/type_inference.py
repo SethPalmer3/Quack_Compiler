@@ -37,4 +37,5 @@ from ASTNodes import *
 #     return {}
 
 def type_inference(n: ASTNode, _master_dict: dict = {}) -> dict:
-    return n.infer_type(_master_dict)
+    n.infer_type(_master_dict)
+    return _master_dict

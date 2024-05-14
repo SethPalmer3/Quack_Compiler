@@ -28,11 +28,13 @@ class MethodNode(ASTNode):
 
     def infer_type(self, _master_record: dict = ...) -> dict:
 
-        _master_record["temp"] = {'params': []}
-        local_scope = {'params': [], 'ret': self.returns.__str__(), 'body': {}}
+        _master_record["temp"] = {}
+        local_scope = {'params': {  }, 'ret': self.returns.__str__(), 'body': {}}
         for f in self.formals:
-            _master_record['temp']['params'].append(f.var_type.__str__())
-            local_scope['params'].append(f.var_type.__str__())
+            _master_record['temp'][f'{f.var_name}'] = f.var_type.__str__()
+            local_scope['params'][f'{f.var_name}'] = f.var_type.__str__()
         for stmt in self.body.children:
-            local_scope['body'].update(stmt.infer_type(_master_record))
+            loc_types = stmt.infer_type(_master_record) 
+            local_scope['body'].update(loc_types)
+            _master_record["temp"].update(loc_types)
         return local_scope

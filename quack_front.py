@@ -7,11 +7,13 @@ import argparse
 import json
 import sys
 import pprint
-from ASTNodes.util import *
+# from ASTNodes.util import *
 
 from lark.tree import ParseTree
 
 from ASTNodes import *
+
+from type_inference import *
 
 
 def cli():
@@ -52,7 +54,7 @@ class ASTBuilder(Transformer):
         name = e[0]
         receiver = e[1]
         params = e[2:]
-        return MethodCallNode(name, receiver, params)
+        return MethodCallNode(name.__str__(), receiver, params)
 
     def returns(self, e):
         if not e:
@@ -115,7 +117,7 @@ class ASTBuilder(Transformer):
     def variable_ref(self, e):
         """A reference to a variable"""
         log.debug("->variable_ref")
-        return VariableRefNode(e[0])
+        return VariableRefNode(e[0].__str__())
 
     def block(self, e) -> ASTNode:
         log.debug("->block")
@@ -126,7 +128,7 @@ class ASTBuilder(Transformer):
         log.debug("->assignment")
 
         name, assign_type, rhs = e
-        return AssignmentNode(name, assign_type, rhs)
+        return AssignmentNode(name.__str__(), assign_type, rhs)
 
     def ifstmt(self, e) -> ASTNode:
         log.debug("->ifstmt")
@@ -149,9 +151,9 @@ class ASTBuilder(Transformer):
         log.debug("->constant")
         return ConstantNode(e[0])
 
-def type_inference(n: ASTNode, _master_dict = {}) -> dict:
-    n.infer_type(_master_dict)
-    return _master_dict
+# def type_inference(n: ASTNode, _master_dict = {}) -> dict:
+#     n.infer_type(_master_dict)
+#     return _master_dict
 
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)
@@ -168,7 +170,7 @@ def generate_ast(
 def main():
     args = cli()
     # text = "".join(args.source.readlines())
-    text = "".join(open("./samples/expr.qk").readlines())
+    text = "".join(open("./samples/error_test.qk").readlines())
     ( ast, tree ) = generate_ast(text)
     print(tree.pretty("   "))
     ast: ASTNode = ASTBuilder().transform(tree)
@@ -179,10 +181,10 @@ def main():
     print(ast)
     # Build symbol table, starting with the hard-coded json table
     # provided by Pranav.  We'll follow that structure for the rest
-    builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
-    symtab = json.load(builtins)
-    ast.walk(symtab, method_table_walk)
-    print(json.dumps(symtab,indent=4))
+    # builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
+    # symtab = json.load(builtins)
+    # ast.walk(symtab, method_table_walk)
+    # print(json.dumps(symtab,indent=4))
 
 
 if __name__ == "__main__":

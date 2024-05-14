@@ -50,25 +50,37 @@
                 ],
                 "ret": "Bool"
             },
-            "PLUS": {
+            "plus": {
                 "params": [
                     "Int"
                 ],
                 "ret": "Int"
             },
-            "TIMES": {
+            "times": {
                 "params": [
                     "Int"
                 ],
                 "ret": "Int"
             },
-            "MINUS": {
+            "minus": {
                 "params": [
                     "Int"
                 ],
                 "ret": "Int"
             },
-            "DIVIDE": {
+            "divide": {
+                "params": [
+                    "Int"
+                ],
+                "ret": "Int"
+            },
+            "lessthan": {
+                "params": [
+                    "Int"
+                ],
+                "ret": "Int"
+            },
+            "greaterthan": {
                 "params": [
                     "Int"
                 ],
@@ -104,7 +116,7 @@
                 ],
                 "ret": "Bool"
             },
-            "PLUS": {
+            "plus": {
                 "params": [
                     "String"
                 ],

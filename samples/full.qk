@@ -11,4 +11,4 @@ def test_method(a: Int) : Nothing {
 hello;
 }
 
-z: Int = 6 + 5;
+z = 6 + 5;

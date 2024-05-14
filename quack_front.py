@@ -5,6 +5,7 @@ from lark import Lark, Transformer
 import argparse
 import json
 import sys
+import pprint
 
 from typing import List,  Callable
 
@@ -191,7 +192,7 @@ class AssignmentNode(ASTNode):
         self.name = name
         self.assign_type = assign_type
         self.rhs = rhs
-        self.children = []
+        self.children = [rhs]
 
     def __str__(self):
         if self.assign_type is None:
@@ -291,6 +292,23 @@ class CondNode(ASTNode):
     def __str__(self):
         return f"{self.cond}"
 
+class ConstantNode(ASTNode):
+    def __init__(self, e):
+        self.value = e
+        self.const_type = self.determine_type(e)
+        self.children = []
+
+    def determine_type(self, e):
+        try:
+            self.value = int(e.__str__())
+            return "Int"
+        except ValueError as E:
+            self.value = e.__str__()
+            return "String"
+
+
+    def __str__(self) -> str:
+        return self.value.__str__()
 
 class ASTBuilder(Transformer):
     """Translate Lark tree into my AST structure"""
@@ -306,7 +324,7 @@ class ASTBuilder(Transformer):
     def clazz(self, e):
         log.debug("->clazz")
         name, formals, super, methods, constructor = e
-        return ClassNode(name, formals, super, methods, constructor)
+        return ClassNode(name.__str__(), formals, super.__str__(), methods, constructor)
 
     def methods(self, e):
         return e
@@ -345,12 +363,12 @@ class ASTBuilder(Transformer):
     def lessthan(self, e):
         receiver = e[0]
         params = e[1:]
-        return MethodCallNode("LESS", receiver, params)
+        return MethodCallNode("less", receiver, params)
 
     def greaterthan(self, e):
         receiver = e[0]
         params = e[1:]
-        return MethodCallNode("LESS", receiver, params)
+        return MethodCallNode("greater", receiver, params)
 
     def and_op(self, e):
         left, right = e
@@ -362,19 +380,19 @@ class ASTBuilder(Transformer):
 
     def add(self, e):
         receiver, params = e
-        return MethodCallNode("PLUS", receiver, [params])
+        return MethodCallNode("plus", receiver, [params])
 
     def sub(self, e):
         receiver, params = e
-        return MethodCallNode("MINUS", receiver, [params])
+        return MethodCallNode("minus", receiver, [params])
 
     def mul(self, e):
         receiver, params = e
-        return MethodCallNode("TIMES", receiver, [params])
+        return MethodCallNode("times", receiver, [params])
 
     def div(self, e):
         receiver, params = e
-        return MethodCallNode("DIVIDE", receiver, [params])
+        return MethodCallNode("divide", receiver, [params])
 
     def ident(self, e):
         """A terminal symbol """
@@ -413,6 +431,46 @@ class ASTBuilder(Transformer):
     def cond(self, e) -> ASTNode:
         log.debug("->cond")
         return e
+    
+    def constant(self, e) -> ASTNode:
+        log.debug("->constant")
+        return ConstantNode(e[0])
+
+def type_inference(n: ASTNode, _master_dict: dict = {}) -> dict:
+    if isinstance(n, ProgramNode):
+        for c in n.children:
+            type_inference(c, _master_dict)
+        return _master_dict
+    elif isinstance(n, ClassNode):
+        _master_dict[f"{n.name.__str__()}"] = {}
+        _master_dict[f"{n.name.__str__()}"]['super'] = n.super_class.__str__()
+        _master_dict[f"{n.name.__str__()}"]['methods'] = {}
+        for m in n.children:
+            _master_dict[f"{n.name}"]['methods'][f"{m.name}"] = type_inference(m, _master_dict)
+    elif isinstance(n, MethodNode):
+        _master_dict["temp"] = {'params': []}
+        local_scope = {'params': [], 'ret': n.returns.__str__(), 'body': {}}
+        for f in n.formals:
+            _master_dict['temp']['params'].append(f.var_type.__str__())
+            local_scope['params'].append(f.var_type.__str__())
+        for stmt in n.body.children:
+            local_scope['body'].update(type_inference(stmt, _master_dict))
+        return local_scope
+    elif isinstance(n, AssignmentNode):
+        if n.assign_type:
+            return {n.name.__str__(): n.assign_type.__str__()}
+        elif n.name in _master_dict.keys():
+            return {}
+        else:
+            assign_type = list(type_inference(n.rhs, _master_dict).values())[0]
+            return {n.name.__str__(): assign_type}
+    elif isinstance(n, MethodCallNode):
+        reciever_type = list(type_inference(n.receiver, _master_dict).values())
+        return {f"{n.name.__str__()}": _master_dict[f"{reciever_type[0]}"]["methods"][f"{n.name.__str__()}"]['ret']}
+    elif isinstance(n, ConstantNode):
+        return {f"{n.value.__str__()}": n.const_type}
+        
+    return {}
 
 
 def method_table_walk(node: ASTNode, visit_state: dict):
@@ -430,10 +488,15 @@ def generate_ast(
 
 def main():
     args = cli()
-    text = "".join(args.source.readlines())
+    # text = "".join(args.source.readlines())
+    text = "".join(open("./samples/full.qk").readlines())
     ( ast, tree ) = generate_ast(text)
     print(tree.pretty("   "))
     ast: ASTNode = ASTBuilder().transform(tree)
+    builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
+    symtab = json.load(builtins)
+    ast.walk(symtab, method_table_walk)
+    print(pprint.pp(type_inference(ast, symtab)))
     print(ast)
     # Build symbol table, starting with the hard-coded json table
     # provided by Pranav.  We'll follow that structure for the rest

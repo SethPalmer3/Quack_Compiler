@@ -1,32 +1,28 @@
-from .quack_front import *
-from .quack_constants import *
+import quack_front
+import json
 
-def eval_type(n: ASTNode) -> str|None:
-    if isinstance(n, int):
-        return INT
-    return None
-
-def update_type_table(n: ASTNode, type_table: dict[str, str]):
-    if isinstance(n, AssignmentNode):
-        evaluated_rhs = eval_type(n.rhs)
-        # TODO: implement least common class
-        if n.assign_type is not None and n.assign_type != evaluated_rhs:
-            raise TypeError(f"Right hand side does not match declared type of {n.name}")
+def type_inference(n: quack_front.ASTNode, _master_dict: dict = {}) -> dict:
+    if isinstance(n, quack_front.ProgramNode):
+        for c in n.children:
+            _master_dict[c.name] = type_inference(c, _master_dict)
+    elif isinstance(n, quack_front.ClassNode):
+        for m in n.children:
+            _master_dict[f"{n.name}"].append(type_inference(m))
+    elif isinstance(n, quack_front.MethodNode):
+        signature = (n.returns, [])
+        for f in n.formals:
+            signature[1].append(f.var_type)
+            _master_dict[f"{f.var_name}"] = f.var_type
+        for stmt in n.body.children:
+            type_inference(stmt, _master_dict)
+        return _master_dict
+    elif isinstance(n, quack_front.AssignmentNode):
+        if n.assign_type:
+            return {n.name: n.assign_type}
+        elif n.name in _master_dict.keys():
+            return {}
         else:
-            type_table[n.name] = evaluated_rhs
-    elif isinstance(n, VariableRefNode):
-        if n.name not in type_table.keys():
-            raise TypeError(f"Undeclared variable {n.name}")
-    # elif isinstance(n, MethodCallNode):
-        # TODO: Get return value of method call
-    elif isinstance(n, BlockNode):
-        for stmt in n.children:
-            update_type_table(stmt, type_table)
+            return {n.name: type_inference(n.rhs)}
+        
+    return {}
 
-
-def generate_method_type_table(m: MethodNode) -> dict[str, str]:
-    type_table = {}
-    for stmt in m.children:
-        update_type_table(stmt, type_table)
-
-    return type_table

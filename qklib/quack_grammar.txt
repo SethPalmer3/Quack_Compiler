@@ -67,9 +67,11 @@ _cond: expr
       | product "/" elem -> div
 
 ?elem: ident -> variable_ref
-      | NUMBER
-      | ESCAPED_STRING
+      | constant
       | call
+
+constant: NUMBER
+         | ESCAPED_STRING
 
 ident: IDENT
 

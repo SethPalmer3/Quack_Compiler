@@ -18,13 +18,9 @@ class AssignmentNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
 
         if self.assign_type:
-        # TODO: Add check for declared type and given rhs
-            new_type = LCA(self.assign_type, _master_record['temp'][f'{self.name}'])
-            self.assign_type = new_type
-
+            # TODO: Add check for declared type and given rhs
             return {self.name.__str__(): self.assign_type.__str__()}
         elif self.name in _master_record['temp'].keys():
-            # TODO: Add Least common ancestor 
             self.assign_type = _master_record["temp"][f"{self.name}"]
             calc_type = list(self.rhs.infer_type(_master_record).values())[0]
             new_type = LCA(self.assign_type, calc_type, _master_record)
@@ -36,3 +32,7 @@ class AssignmentNode(ASTNode):
             assign_type = list(self.rhs.infer_type(_master_record).values())[0]
             self.assign_type = assign_type
             return {self.name.__str__(): assign_type}
+    
+    def gen_code(self, code: list[str]):
+        self.rhs.gen_code(code)
+        code.append(f"store {self.name}")

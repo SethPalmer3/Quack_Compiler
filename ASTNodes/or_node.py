@@ -11,9 +11,11 @@ class OrNode(ASTNode):
         return f"{self.left.__str__()} or {self.right.__str__()}"
     
     def infer_type(self, _master_record: dict = ...) -> dict:
-        # lhs = list(self.left.infer_type(_master_record).values())[0]
-        # rhs = list(self.right.infer_type(_master_record).values())[0]
         # TODO: Add checks for lhs and rhs being boolean
+        left_type = list(self.left.infer_type(_master_record).values())[0]
+        right_type = list(self.right.infer_type(_master_record).values())[0]
+        if left_type != "Bool" or right_type != "Bool":
+            raise ValueError("Left or right `and` expressions do not evaluate to booleans")
         self.uuid += 1
         return {f"or_{self.uuid}": "Bool"}
 

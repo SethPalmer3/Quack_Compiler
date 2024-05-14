@@ -50,6 +50,12 @@
                 ],
                 "ret": "Bool"
             },
+            "greater":{
+                "params": [
+                    "Int"
+                ],
+                "ret": "Bool"
+            },
             "plus": {
                 "params": [
                     "Int"

@@ -10,6 +10,8 @@ TAB_CHAR = '  '
 LB = "{"
 RB = "}"
 
+MR = {}
+
 
 def flatten(m: list):
     """Flatten nested lists into a single level of list"""

@@ -75,8 +75,9 @@ constant: NUMBER
 
 ident: IDENT
 
-method: "def" name "(" formals ")" returns "{" block "}"
+method: "def" name "(" formals ")" returns "{" block [return_stmt] "}"
 returns: (":"  name)?
+?return_stmt: "return" expr
 
 IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
 

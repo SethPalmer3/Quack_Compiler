@@ -17,3 +17,6 @@ class VariableRefNode(ASTNode):
             return {self.name: _master_record['temp']['local'][self.name]}
         else:
             raise ValueError(f"Cannot find variable {self.name}")
+
+    def gen_code(self, code: list[str]):
+        code.append(f"load {self.name}")

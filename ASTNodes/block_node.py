@@ -11,3 +11,7 @@ class BlockNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
         pass
 
+    def gen_code(self, code: list[str]):
+        for child in self.children:
+            child.gen_code(code)
+

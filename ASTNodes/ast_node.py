@@ -33,3 +33,6 @@ class ASTNode:
     def infer_type(self, _master_record: dict ={}) -> dict:
         pass
 
+    def gen_code(self, code: list[str]):
+        raise NotImplementedError(f"Gen code was not implemented for {self.__class__.__name__}")
+

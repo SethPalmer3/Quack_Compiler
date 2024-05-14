@@ -16,4 +16,9 @@ class ProgramNode(ASTNode):
             c.infer_type(_master_record)
         if 'temp' in _master_record.keys():
             del _master_record['temp']
+        MR = _master_record
         return _master_record
+    
+    def gen_code(self, code: list[str]):
+        for child in self.children:
+            child.gen_code(code)

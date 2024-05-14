@@ -5,7 +5,7 @@ def type_inference(n: quack_front.ASTNode, _master_dict: dict = {}) -> dict:
     if isinstance(n, quack_front.ProgramNode):
         for c in n.children:
             _master_dict[c.name] = type_inference(c, _master_dict)
-    elif isinstance(n, quack_front.ClassNode):
+    elif isinstance(n, quack_front.QuackClass):
         for m in n.children:
             _master_dict[f"{n.name}"].append(type_inference(m))
     elif isinstance(n, quack_front.MethodNode):

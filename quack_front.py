@@ -20,9 +20,12 @@ def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
                             nargs="?", default=sys.stdin)
+    cli_parser.add_argument("-d", "--debug", action=argparse.BooleanOptionalAction, 
+                            default=False)
+    cli_parser.add_argument("-o", "--object", type=argparse.FileType("w"), nargs="?",
+                            default="../tiny_vm/OBJ/$Main.json")
     args = cli_parser.parse_args()
     return args
-
 
 
 class ASTBuilder(Transformer):
@@ -46,8 +49,8 @@ class ASTBuilder(Transformer):
 
     def method(self, e):
         log.debug("->method")
-        name, formals, returns, body = e
-        return MethodNode(name.__str__(), formals, returns[0].__str__(), body)
+        name, formals, returns, body, return_stmt = e
+        return MethodNode(name.__str__(), formals, returns[0].__str__(), body, return_stmt)
 
     def call(self, e):
         log.debug("->method call")
@@ -151,10 +154,6 @@ class ASTBuilder(Transformer):
         log.debug("->constant")
         return ConstantNode(e[0])
 
-# def type_inference(n: ASTNode, _master_dict = {}) -> dict:
-#     n.infer_type(_master_dict)
-#     return _master_dict
-
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)
 
@@ -169,16 +168,25 @@ def generate_ast(
 
 def main():
     args = cli()
-    # text = "".join(args.source.readlines())
-    text = "".join(open("./samples/error_test.qk").readlines())
+    if args.debug:
+        text = "".join(open("./samples/simple.qk").readlines())
+    else:
+        text = "".join(args.source.readlines())
     ( ast, tree ) = generate_ast(text)
-    print(tree.pretty("   "))
+    if args.debug:
+        print(tree.pretty("   "))
     ast: ASTNode = ASTBuilder().transform(tree)
     builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
     symtab = json.load(builtins)
     ast.walk(symtab, method_table_walk)
-    print(pprint.pp(type_inference(ast, symtab)))
-    print(ast)
+    typing_stuff = type_inference(ast, symtab) 
+    args.object.write(typing_stuff.__str__())
+    if args.debug:
+        print(pprint.pp(typing_stuff))
+        print(ast)
+    code = []
+    ast.gen_code(code)
+    print("\n".join(code))
     # Build symbol table, starting with the hard-coded json table
     # provided by Pranav.  We'll follow that structure for the rest
     # builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')

@@ -1,0 +1,5 @@
+.class simple:Obj
+.method $constructor
+enter
+const 42
+return 0

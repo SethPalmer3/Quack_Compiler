@@ -13,5 +13,5 @@ from .expr_node import ExprNode
 from .block_node import BlockNode
 from .formal_node import FormalNode
 from .method_node import MethodNode
-from .class_node import QuackClass
+from .class_node import ClassNode
 from .program_node import ProgramNode

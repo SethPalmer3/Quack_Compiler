@@ -15,15 +15,14 @@ from ASTNodes import *
 
 from type_inference import *
 
-
 def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
                             nargs="?", default=sys.stdin)
     cli_parser.add_argument("-d", "--debug", action=argparse.BooleanOptionalAction, 
                             default=False)
-    cli_parser.add_argument("-o", "--object", type=argparse.FileType("w"), nargs="?",
-                            default="../tiny_vm/OBJ/$Main.json")
+    # cli_parser.add_argument("-o", "--object", type=argparse.FileType("w"), nargs="?",
+    #                         default="../tiny_vm/OBJ/$Main.json")
     args = cli_parser.parse_args()
     return args
 
@@ -180,12 +179,20 @@ def main():
     symtab = json.load(builtins)
     ast.walk(symtab, method_table_walk)
     typing_stuff = type_inference(ast, symtab) 
-    args.object.write(typing_stuff.__str__())
+    # args.object.write(typing_stuff.__str__())
     if args.debug:
         print(pprint.pp(typing_stuff))
         print(ast)
     code = []
     ast.gen_code(code)
+    filename = pathlib.Path(args.source.__str__()).stem
+    for i, line in enumerate(code): # Find and replace $Main with the file name
+        main_split = line.split("$Main")
+        if main_split.__len__() > 1:
+            code[i] = main_split[0] + filename + "".join(main_split[1:])
+            break
+
+
     print("\n".join(code))
     # Build symbol table, starting with the hard-coded json table
     # provided by Pranav.  We'll follow that structure for the rest

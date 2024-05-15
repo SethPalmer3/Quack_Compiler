@@ -49,7 +49,7 @@ class MethodNode(ASTNode):
         for formal in self.formals:
             formal.gen_code(code)
         self.body.gen_code(code)
-        self.return_stmt.gen_code(code)
+        # self.return_stmt.gen_code(code)
         code.append(f"return 0")
 
 

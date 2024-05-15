@@ -1,0 +1,37 @@
+{
+    "class_name": "simple",
+    "super": "Obj",
+    "imports": [
+        "simple",
+        "Obj"
+    ],
+    "methods": [
+        "$constructor",
+        "string",
+        "print",
+        "equals"
+    ],
+    "fields": [],
+    "n_fields": 0,
+    "n_methods": 4,
+    "n_inherited": 4,
+    "constants": [
+        {
+            "kind": "i",
+            "value": "42"
+        }
+    ],
+    "code": [
+        {
+            "name": "$constructor",
+            "slot": 0,
+            "code": [
+                4,
+                1,
+                0,
+                5,
+                0
+            ]
+        }
+    ]
+}

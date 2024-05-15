@@ -8,11 +8,10 @@ class MethodCallNode(ASTNode):
         self.params = params
         self.children = params
     def __str__(self) -> str:
-        ret_str = f"{ZERO_SPACE_CHAR}{self.name}("
-        all_params = [self.receiver] + self.params
-        for i in range(len(all_params)):
-            ret_str += remove_zero_size_char(all_params[i].__str__())
-            if i < len(all_params) - 1:
+        ret_str = f"{ZERO_SPACE_CHAR}{self.receiver.__str__()}.{self.name}("
+        for i in range(len(self.params)):
+            ret_str += remove_zero_size_char(self.params[i].__str__())
+            if i < len(self.params) - 1:
                 ret_str += ", "
         return ret_str + ")"
 

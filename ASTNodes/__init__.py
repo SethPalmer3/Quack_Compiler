@@ -12,6 +12,7 @@ from .assignment_node import AssignmentNode
 from .expr_node import ExprNode
 from .block_node import BlockNode
 from .formal_node import FormalNode
+from .member_node import MemberNode
 from .method_node import MethodNode
 from .class_node import ClassNode
 from .program_node import ProgramNode

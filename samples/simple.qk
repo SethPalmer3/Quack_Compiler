@@ -1,3 +1,10 @@
-x: Int = 42 + 1;
-print(x);
+class Test() extends Obj{
 
+	def test(a: Int){
+		a.print();
+		"\n".print();
+	}
+} 
+
+t = Test();
+t.test(6);

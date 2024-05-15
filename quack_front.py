@@ -1,5 +1,6 @@
 """Front end for Quack"""
 
+from logging import DEBUG
 import pathlib
 from lark import Lark, Transformer
 
@@ -13,14 +14,15 @@ from lark.tree import ParseTree
 
 from ASTNodes import *
 
+from ASTNodes.member_node import MemberNode
 from type_inference import *
 
 def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
                             nargs="?", default=sys.stdin)
-    # cli_parser.add_argument("-d", "--debug", action=argparse.BooleanOptionalAction, 
-    #                         default=False)
+    cli_parser.add_argument("-r", "--run", action=argparse.BooleanOptionalAction, 
+                            default=False)
     # cli_parser.add_argument("-o", "--object", type=argparse.FileType("w"), nargs="?",
     #                         default="../tiny_vm/OBJ/$Main.json")
     args = cli_parser.parse_args()
@@ -48,15 +50,19 @@ class ASTBuilder(Transformer):
 
     def method(self, e):
         log.debug("->method")
-        name, formals, returns, body, return_stmt = e
+        name, formals, returns, body = e[0:4]
+        if e.__len__() == 5:
+            return_stmt = e[5]
+        else:
+            return_stmt = ConstantNode(None)
         return MethodNode(name.__str__(), formals, returns[0].__str__(), body, return_stmt)
 
     def call(self, e):
         log.debug("->method call")
-        name = e[0]
-        receiver = e[1]
+        receiver = e[0]
+        name = e[1].__str__()
         params = e[2:]
-        return MethodCallNode(name.__str__(), receiver, params)
+        return MethodCallNode(name, receiver, params)
 
     def returns(self, e):
         if not e:
@@ -64,8 +70,6 @@ class ASTBuilder(Transformer):
         return e
 
     def formals(self, e):
-        if e[0] is None:
-            return []
         return e
 
     def formal(self, e):
@@ -114,7 +118,7 @@ class ASTBuilder(Transformer):
     def ident(self, e):
         """A terminal symbol """
         log.debug("->ident")
-        return e[0]
+        return e[0].__str__()
 
     def variable_ref(self, e):
         """A reference to a variable"""
@@ -153,6 +157,14 @@ class ASTBuilder(Transformer):
         log.debug("->constant")
         return ConstantNode(e[0])
 
+    def class_init(self, e) -> ASTNode:
+        if e.__len__() > 1:
+            params = e[1:]
+        else:
+            params = []
+        return MethodCallNode('$construct', receiver=ClassNode(e[0]), params=params)
+
+
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)
 
@@ -161,13 +173,16 @@ def generate_ast(
     grammar: str = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'quack_grammar.txt' ).read(),
     ast_builder: Transformer = ASTBuilder()
     ) -> tuple[ ASTNode, ParseTree ]:
-    quack_parser = Lark(grammar)  # Create parser
+    quack_parser = Lark(grammar, maybe_placeholders=False)  # Create parser
     tree = quack_parser.parse(input_text) # Generate the parse tree from input_text and given grammar
     return ast_builder.transform(tree), tree  # Transform tree to the AST
 
-DEBUG = False
 def main():
+    DEBUG = True
+    # DEBUG = False
     args = cli()
+    if args.run:
+        DEBUG = False
     if DEBUG:
         text = "".join(open("./samples/simple.qk").readlines())
     else:

@@ -9,4 +9,5 @@ touch "tiny_vm/OBJ/$FILE.json"
 cd ./tiny_vm/
 python3 assemble.py ../tmp.txt > "OBJ/$FILE.json"
 ./bin/tiny_vm "$FILE"
+rm ../tmp.txt
 

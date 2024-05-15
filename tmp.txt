@@ -1,5 +1,11 @@
 .class simple:Obj
 .method $constructor
+.local x
 enter
 const 42
+const 1
+call Int:plus
+store x
+load x
+call Int:print
 return 0

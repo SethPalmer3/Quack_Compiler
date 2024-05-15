@@ -38,13 +38,24 @@ class MethodNode(ASTNode):
             _master_record['temp'][f'{f.var_name}'] = f.var_type.__str__()
             local_scope['params'].append(f.var_type.__str__())
         for stmt in self.body.children:
-            loc_types = stmt.infer_type(_master_record) 
-            local_scope['body'].update(loc_types)
-            _master_record["temp"].update(loc_types)
+            if not isinstance(stmt, MethodCallNode):
+                loc_types = stmt.infer_type(_master_record) 
+                local_scope['body'].update(loc_types)
+                _master_record["temp"].update(loc_types)
         return local_scope
     
     def gen_code(self, code: list[str]):
         code.append(f".method {self.name}")
+        local_scope = self.infer_type(util.MR)
+        if local_scope['params'].__len__() > 0:
+            code_str = ".args "
+            for p in local_scope['params']:
+                method_arg = list(p.keys())[0]
+                code_str += f"{method_arg} "
+
+        if local_scope['body'].keys().__len__() > 0: # Get local variables
+            for k in local_scope['body'].keys():
+                code.append(f".local {k.__str__()}")
         code.append(f"enter")
         for formal in self.formals:
             formal.gen_code(code)

@@ -19,8 +19,8 @@ def cli():
     cli_parser = argparse.ArgumentParser()
     cli_parser.add_argument("source", type=argparse.FileType("r"),
                             nargs="?", default=sys.stdin)
-    cli_parser.add_argument("-d", "--debug", action=argparse.BooleanOptionalAction, 
-                            default=False)
+    # cli_parser.add_argument("-d", "--debug", action=argparse.BooleanOptionalAction, 
+    #                         default=False)
     # cli_parser.add_argument("-o", "--object", type=argparse.FileType("w"), nargs="?",
     #                         default="../tiny_vm/OBJ/$Main.json")
     args = cli_parser.parse_args()
@@ -165,14 +165,15 @@ def generate_ast(
     tree = quack_parser.parse(input_text) # Generate the parse tree from input_text and given grammar
     return ast_builder.transform(tree), tree  # Transform tree to the AST
 
+DEBUG = False
 def main():
     args = cli()
-    if args.debug:
+    if DEBUG:
         text = "".join(open("./samples/simple.qk").readlines())
     else:
         text = "".join(args.source.readlines())
     ( ast, tree ) = generate_ast(text)
-    if args.debug:
+    if DEBUG:
         print(tree.pretty("   "))
     ast: ASTNode = ASTBuilder().transform(tree)
     builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
@@ -180,7 +181,7 @@ def main():
     ast.walk(symtab, method_table_walk)
     typing_stuff = type_inference(ast, symtab) 
     # args.object.write(typing_stuff.__str__())
-    if args.debug:
+    if DEBUG:
         print(pprint.pp(typing_stuff))
         print(ast)
     code = []

@@ -19,7 +19,7 @@ class MethodCallNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
         reciever_type = list(self.receiver.infer_type(_master_record).values())[0]
         self.receiver_type = reciever_type
-        if self.name not in _master_record[f"{reciever_type}"]["methods"]:
+        if self.name not in _master_record[f"{reciever_type}"]["methods"].keys():
             raise ValueError(f"Cannot find {self.name} in {reciever_type} class")
         return {f"{self.name.__str__()}": _master_record[f"{reciever_type}"]["methods"][f"{self.name.__str__()}"]['ret']}
     
@@ -27,7 +27,7 @@ class MethodCallNode(ASTNode):
         self.receiver.gen_code(code)
         for child in self.children:
             child.gen_code(code)
-        reciever_type = list(self.receiver.infer_type(MR).values())[0]
+        reciever_type = list(self.receiver.infer_type(util.MR).values())[0]
         code.append(f"call {reciever_type}:{self.name}")
 
 

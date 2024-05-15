@@ -43,26 +43,27 @@ class ASTBuilder(Transformer):
     def clazz(self, e):
         log.debug("->clazz")
         name, formals, super, methods, constructor = e
-        return ClassNode(name.__str__(), formals, super.__str__(), methods, constructor)
+        clss = ClassNode(name.__str__(), formals, super.__str__(), methods, constructor)
+        util.class_table[name.__str__()] = clss
+        return clss
 
     def methods(self, e):
         return e
 
     def method(self, e):
         log.debug("->method")
-        name, formals, returns, body = e[0:4]
-        if e.__len__() == 5:
-            return_stmt = e[5]
-        else:
-            return_stmt = ConstantNode(None)
-        return MethodNode(name.__str__(), formals, returns[0].__str__(), body, return_stmt)
+        name, formals, returns, body = e
+        return MethodNode(name.__str__(), formals, returns[0].__str__(), body)
 
     def call(self, e):
         log.debug("->method call")
         receiver = e[0]
-        name = e[1].__str__()
-        params = e[2:]
-        return MethodCallNode(name, receiver, params)
+        name = e[1]
+        if e[2]:
+            params = e[2:]
+        else:
+            params = []
+        return MethodCallNode(name.__str__(), receiver, params)
 
     def returns(self, e):
         if not e:
@@ -162,7 +163,12 @@ class ASTBuilder(Transformer):
             params = e[1:]
         else:
             params = []
-        return MethodCallNode('$construct', receiver=ClassNode(e[0]), params=params)
+        return MethodCallNode('$construct', receiver=util.class_table[e[0]], params=params)
+    
+    def _expr_list(self, e):
+        if e:
+            return e[0]
+        return []
 
 
 def method_table_walk(node: ASTNode, visit_state: dict):
@@ -173,7 +179,7 @@ def generate_ast(
     grammar: str = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'quack_grammar.txt' ).read(),
     ast_builder: Transformer = ASTBuilder()
     ) -> tuple[ ASTNode, ParseTree ]:
-    quack_parser = Lark(grammar, maybe_placeholders=False)  # Create parser
+    quack_parser = Lark(grammar)  # Create parser
     tree = quack_parser.parse(input_text) # Generate the parse tree from input_text and given grammar
     return ast_builder.transform(tree), tree  # Transform tree to the AST
 

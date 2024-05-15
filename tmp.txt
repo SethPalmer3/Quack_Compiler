@@ -1,0 +1,7 @@
+.class simple:Obj
+.method $constructor
+.local x
+enter
+const 42
+store x
+return 0

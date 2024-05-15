@@ -33,9 +33,12 @@ _stmt: ifstmt
 
 assignment: name [":" name] "=" expr 
 
-call: elem "." ident "(" [expr ("," expr)*] ")" 
 
-class_init: ident "(" [expr ("," expr)*] ")" 
+call: expr "." name "(" [expr ("," expr)*] ")" 
+
+//?member: expr "." name 
+
+// class_init: ident "(" [expr ("," expr)*] ")" 
 
 // An 'if' statement may have zero or more elifs and
 // zero or one else
@@ -69,17 +72,16 @@ _cond: expr
 ?elem: ident -> variable_ref
       | constant
       | call
-      | class_init
+      //| class_init
 
 constant: INT
          | ESCAPED_STRING
 
 ident: IDENT
 
-
-method: "def" name "(" formals ")" returns "{" block [return_stmt] "}"
+method: "def" name "(" formals ")" returns "{" block "}"
 returns: (":"  name)?
-?return_stmt: "return" expr
+//?return_stmt: "return" expr
 
 IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
 

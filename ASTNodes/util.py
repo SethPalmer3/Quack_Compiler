@@ -12,6 +12,8 @@ RB = "}"
 
 MR = {}
 
+class_table = {}
+
 
 def flatten(m: list):
     """Flatten nested lists into a single level of list"""

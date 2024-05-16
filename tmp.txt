@@ -1,7 +1,22 @@
+.class Test:Obj
+.method test
+.args a
+enter
+load a
+call Int:print
+return 0
+.method $constructor
+enter
+return 0
+​
 .class simple:Obj
 .method $constructor
-.local x
+.local t
 enter
+new Test
+store t
 const 42
-store x
+load t
+call Test:test
 return 0
+​

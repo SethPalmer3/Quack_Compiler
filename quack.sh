@@ -1,14 +1,23 @@
 #!/bin/bash
 
 source venv/bin/activate
-python3 ./quack_front.py -r "$1" > ./tmp.txt
 
 FILENAME="$(basename "$1")"
 FILE="${FILENAME%.*}"
-echo "$FILE"
-touch "tiny_vm/OBJ/$FILE.json"
+python3 ./quack_front.py -r "$1" > ./tmp.txt
 cd ./tiny_vm/
-python3 assemble.py ../tmp.txt > "OBJ/$FILE.json"
-# rm ../tmp.txt
+COUNT=$(ls ../tmp | wc -l)
+for ((i=0;i<COUNT;i++)); do # I hate this accounts for order of imports
+    for file in $(ls ../tmp); do
+	echo "Creating $file"
+	$(touch "./OBJ/${file%.*}.json")
+	python3 assemble.py "../tmp/$file" 2> /dev/null > "./OBJ/${file%.*}.json"
+    done
+done
+for file in $(ls ../tmp); do
+    echo "Removing $file"
+    # Remove the temporary file
+    rm "../tmp/$file"
+    # Delete the file after processing
+done
 ./bin/tiny_vm "$FILE"
-

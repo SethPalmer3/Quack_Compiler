@@ -8,3 +8,9 @@ class FormalNode(ASTNode):
 
     def __str__(self):
         return f"{self.var_name}: {self.var_type}"
+
+    def infer_type(self, _master_record: dict = ...) -> dict:
+        return {self.var_name: self.var_type}
+    
+    def gen_code(self, code: list[str]):
+        return self.var_name

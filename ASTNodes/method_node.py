@@ -9,9 +9,9 @@ class MethodNode(ASTNode):
         self.returns = returns
         self.body = body
         self.return_stmt = return_stmt
-        if not self.return_stmt:
-            self.return_stmt = ConstantNode(None)
-        self.children = [formals, body, self.return_stmt]
+        self.children = [formals, body]
+        if self.return_stmt:
+            self.children += [self.return_stmt]
 
     def __str__(self):
         formals_str = ", ".join([str(fm) for fm in self.formals])
@@ -47,11 +47,14 @@ class MethodNode(ASTNode):
     def gen_code(self, code: list[str]):
         code.append(f".method {self.name}")
         local_scope = self.infer_type(util.MR)
-        if local_scope['params'].__len__() > 0:
+        if self.formals.__len__() > 0:
             code_str = ".args "
-            for p in local_scope['params']:
-                method_arg = list(p.keys())[0]
-                code_str += f"{method_arg} "
+            for i, p in enumerate(self.formals):
+                if i < self.formals.__len__() - 1:
+                    code_str += f"{p.var_name},"
+                else:
+                    code_str += f"{p.var_name}"
+            code.append(code_str)
 
         if local_scope['body'].keys().__len__() > 0: # Get local variables
             for k in local_scope['body'].keys():
@@ -60,7 +63,10 @@ class MethodNode(ASTNode):
         for formal in self.formals:
             formal.gen_code(code)
         self.body.gen_code(code)
-        # self.return_stmt.gen_code(code)
-        code.append(f"return 0")
+        if self.return_stmt:
+            self.return_stmt.gen_code(code)
+            code.append("return 1")
+        else:
+            code.append(f"return 0")
 
 

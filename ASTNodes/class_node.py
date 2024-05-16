@@ -5,6 +5,7 @@ class ClassNode(ASTNode):
                  super_class: str,
                  methods: list[ASTNode],
                  block: ASTNode):
+        from .method_node import MethodNode
         self.name = name
         self.super_class = super_class
         self.methods = methods
@@ -40,9 +41,10 @@ class ClassNode(ASTNode):
         _master_record[f"{self.name.__str__()}"]['fields'] = {}
         for m in self.children:
             _master_record[f"{self.name}"]['methods'][f"{m.name}"] = m.infer_type(_master_record)
-        return {}
+        return {self.name: self.name}
     
     def gen_code(self, code: list[str]):
         code.append(f".class {self.name}:{self.super_class}")
         for child in self.children:
             child.gen_code(code)
+        code.append(f"{ZERO_SPACE_CHAR}")

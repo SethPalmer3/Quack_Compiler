@@ -29,16 +29,8 @@ block: _stmt*
 _stmt: ifstmt
       | assignment ";"
       | expr ";"
-      | call ";"
 
 assignment: name [":" name] "=" expr 
-
-
-call: expr "." name "(" [expr ("," expr)*] ")" 
-
-//?member: expr "." name 
-
-// class_init: ident "(" [expr ("," expr)*] ")" 
 
 // An 'if' statement may have zero or more elifs and
 // zero or one else
@@ -65,14 +57,18 @@ _cond: expr
    | sum "+" product -> add
    | sum "-" product -> sub
 
-?product: elem
-      | product "*" elem -> mul
-      | product "/" elem -> div
+?product: factor
+      | product "*" factor -> mul
+      | product "/" factor -> div
+
+?factor: elem
+      | factor "." ident "(" actuals ")" -> call
+      | ident "(" actuals ")" -> class_init
 
 ?elem: ident -> variable_ref
       | constant
-      | call
-      //| class_init
+
+actuals: [expr ("," expr)* ]
 
 constant: INT
          | ESCAPED_STRING

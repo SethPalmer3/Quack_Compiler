@@ -1,2 +1,8 @@
-x = 42;
-x.print();
+class Test() extends Obj {
+	def test(a: Int) : Nothing{
+		a.print();
+	}
+}
+
+t = Test();
+t.test(42);

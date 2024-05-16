@@ -3,7 +3,8 @@
     "super": "Obj",
     "imports": [
         "simple",
-        "Obj"
+        "Obj",
+        "Test"
     ],
     "methods": [
         "$constructor",
@@ -29,10 +30,16 @@
                 8,
                 1,
                 4,
-                1,
-                0,
+                6,
+                2,
                 10,
                 3,
+                1,
+                0,
+                9,
+                3,
+                2,
+                4,
                 5,
                 0
             ]

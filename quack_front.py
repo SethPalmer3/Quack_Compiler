@@ -14,8 +14,9 @@ from lark.tree import ParseTree
 
 from ASTNodes import *
 
-from ASTNodes.member_node import MemberNode
 from type_inference import *
+
+sys.path.insert(1, './tiny_vm/')
 
 def cli():
     cli_parser = argparse.ArgumentParser()
@@ -43,6 +44,8 @@ class ASTBuilder(Transformer):
     def clazz(self, e):
         log.debug("->clazz")
         name, formals, super, methods, constructor = e
+        if not formals[0]:
+            formals = []
         clss = ClassNode(name.__str__(), formals, super.__str__(), methods, constructor)
         util.class_table[name.__str__()] = clss
         return clss
@@ -59,15 +62,10 @@ class ASTBuilder(Transformer):
         log.debug("->method call")
         receiver = e[0]
         name = e[1]
-        if e[2]:
-            params = e[2:]
-        else:
-            params = []
+        params = e[2]
         return MethodCallNode(name.__str__(), receiver, params)
 
     def returns(self, e):
-        if not e:
-            return "Nothing"
         return e
 
     def formals(self, e):
@@ -160,15 +158,17 @@ class ASTBuilder(Transformer):
 
     def class_init(self, e) -> ASTNode:
         if e.__len__() > 1:
-            params = e[1:]
+            params = e[1]
         else:
             params = []
-        return MethodCallNode('$construct', receiver=util.class_table[e[0]], params=params)
+        return MethodCallNode('$constructor', receiver=util.class_table[e[0]], params=params)
     
-    def _expr_list(self, e):
-        if e:
-            return e[0]
+    def actuals(self, e):
+        if e[0]:
+            return e
         return []
+
+
 
 
 def method_table_walk(node: ASTNode, visit_state: dict):
@@ -179,9 +179,34 @@ def generate_ast(
     grammar: str = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'quack_grammar.txt' ).read(),
     ast_builder: Transformer = ASTBuilder()
     ) -> tuple[ ASTNode, ParseTree ]:
-    quack_parser = Lark(grammar)  # Create parser
+    quack_parser = Lark(grammar, parser="lalr", debug=True)  # Create parser
     tree = quack_parser.parse(input_text) # Generate the parse tree from input_text and given grammar
     return ast_builder.transform(tree), tree  # Transform tree to the AST
+
+def replace_main_class(filename: str, code: list[str]):
+    for i, line in enumerate(code): # Find and replace $Main with the file name
+        main_split = line.split("$Main")
+        if main_split.__len__() > 1:
+            code[i] = main_split[0] + filename + "".join(main_split[1:])
+            break
+
+def split_classes(split_phrase: str, code: list[str]) -> list[list[str]]:
+    ret_list = []
+    tmp_list = []
+    for line in code:
+        if line == split_phrase:
+            ret_list.append(tmp_list)
+            tmp_list = []
+        else:
+            tmp_list.append(line)
+    if tmp_list.__len__() > 0:
+        ret_list.append(tmp_list)
+    return ret_list
+
+def write_tmp_files(tmp_dir: pathlib.Path, codes: list[list[str]]):
+    for code in codes:
+        tmp_file = tmp_dir / f"{code[0].split(' ')[1].split(':')[0]}.asm"
+        tmp_file.write_text("\n".join(code))
 
 def main():
     DEBUG = True
@@ -196,7 +221,6 @@ def main():
     ( ast, tree ) = generate_ast(text)
     if DEBUG:
         print(tree.pretty("   "))
-    ast: ASTNode = ASTBuilder().transform(tree)
     builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
     symtab = json.load(builtins)
     ast.walk(symtab, method_table_walk)
@@ -208,11 +232,9 @@ def main():
     code = []
     ast.gen_code(code)
     filename = pathlib.Path(args.source.__str__()).stem
-    for i, line in enumerate(code): # Find and replace $Main with the file name
-        main_split = line.split("$Main")
-        if main_split.__len__() > 1:
-            code[i] = main_split[0] + filename + "".join(main_split[1:])
-            break
+    replace_main_class(filename, code)
+    class_codes = split_classes(ZERO_SPACE_CHAR, code)
+    write_tmp_files(pathlib.Path('./tmp/'), class_codes)
 
 
     print("\n".join(code))

@@ -1,6 +1,6 @@
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.o: \
- /home/seth/Desktop/tiny_vm/cjson/cJSON.c /usr/include/stdc-predef.h \
- /usr/include/string.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.c \
+ /usr/include/stdc-predef.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -67,4 +67,4 @@ CMakeFiles/test_builtins.dir/cjson/cJSON.c.o: \
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h /usr/include/ctype.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
- /home/seth/Desktop/tiny_vm/cjson/cJSON.h
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.h

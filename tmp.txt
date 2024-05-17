@@ -1,22 +1,13 @@
-.class Test:Obj
-.method test
-.args a
-enter
-load a
-call Int:print
-return 0
-.method $constructor
-enter
-return 0
-​
 .class simple:Obj
 .method $constructor
-.local t
+.local x
 enter
-new Test
-store t
-const 42
-load t
-call Test:test
+const 6
+const 5
+call Int:equals
+store x
+load x
+call Bool:print
+pop
 return 0
 ​

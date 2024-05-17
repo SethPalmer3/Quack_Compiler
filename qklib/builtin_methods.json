@@ -79,18 +79,6 @@
                     "Int"
                 ],
                 "ret": "Int"
-            },
-            "lessthan": {
-                "params": [
-                    "Int"
-                ],
-                "ret": "Int"
-            },
-            "greaterthan": {
-                "params": [
-                    "Int"
-                ],
-                "ret": "Int"
             }
         },
         "fields": {}
@@ -113,12 +101,6 @@
             "equals": {
                 "params": [
                     "Obj"
-                ],
-                "ret": "Bool"
-            },
-            "less": {
-                "params": [
-                    "String"
                 ],
                 "ret": "Bool"
             },

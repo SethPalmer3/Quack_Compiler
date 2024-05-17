@@ -35,5 +35,7 @@ class MethodCallNode(ASTNode):
             self.receiver.gen_code(code)
             reciever_type = list(self.receiver.infer_type(util.MR).values())[0]
             code.append(f"call {reciever_type}:{self.name}")
+            if util.MR[reciever_type]["methods"][self.name]['ret'] == 'Nothing':
+                code.append("pop")
 
 

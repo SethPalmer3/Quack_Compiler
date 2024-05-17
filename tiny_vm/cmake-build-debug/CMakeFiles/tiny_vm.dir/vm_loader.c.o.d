@@ -1,13 +1,14 @@
 CMakeFiles/tiny_vm.dir/vm_loader.c.o: \
- /home/seth/Desktop/tiny_vm/vm_loader.c /usr/include/stdc-predef.h \
- /home/seth/Desktop/tiny_vm/vm_loader.h \
- /home/seth/Desktop/tiny_vm/vm_core.h \
- /home/seth/Desktop/tiny_vm/vm_state.h \
- /home/seth/Desktop/tiny_vm/logger.h \
- /home/seth/Desktop/tiny_vm/builtins.h \
- /home/seth/Desktop/tiny_vm/vm_code_table.h \
- /home/seth/Desktop/tiny_vm/vm_ops.h \
- /home/seth/Desktop/tiny_vm/cjson/cJSON.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_loader.c \
+ /usr/include/stdc-predef.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_loader.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_code_table.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

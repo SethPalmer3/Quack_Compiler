@@ -1,9 +1,12 @@
 CMakeFiles/test_builtins.dir/vm_ops.c.o: \
- /home/seth/Desktop/tiny_vm/vm_ops.c /usr/include/stdc-predef.h \
- /home/seth/Desktop/tiny_vm/vm_ops.h /home/seth/Desktop/tiny_vm/vm_core.h \
- /home/seth/Desktop/tiny_vm/vm_state.h \
- /home/seth/Desktop/tiny_vm/logger.h \
- /home/seth/Desktop/tiny_vm/builtins.h /usr/include/stdlib.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.c \
+ /usr/include/stdc-predef.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.h \
+ /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

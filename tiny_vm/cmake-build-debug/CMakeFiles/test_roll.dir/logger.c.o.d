@@ -1,5 +1,7 @@
-CMakeFiles/test_roll.dir/logger.c.o: /home/seth/Desktop/tiny_vm/logger.c \
- /usr/include/stdc-predef.h /home/seth/Desktop/tiny_vm/logger.h \
+CMakeFiles/test_roll.dir/logger.c.o: \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.c \
+ /usr/include/stdc-predef.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

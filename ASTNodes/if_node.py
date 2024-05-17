@@ -9,6 +9,9 @@ class IfStmtNode(ASTNode):
         self.thenpart = thenpart
         self.elsepart = elsepart
         self.children = [cond, thenpart, elsepart]
+        self.if_label = f"if_{uuid_gen.gen_uuid()}"
+        self.else_label = f"else_{uuid_gen.gen_uuid()}"
+        self.exit_label = f"fi_{uuid_gen.gen_uuid()}"
 
     def __str__(self):
         return f"""
@@ -23,3 +26,15 @@ class IfStmtNode(ASTNode):
         # TODO: Add check for condition
         # TODO: Possibly update thenpart and elsepart
         return {}
+    
+    def gen_code(self, code: list[str]):
+        self.cond.gen_code(code) # Evaluate condition
+        code.append(f"jump_ifnot {self.else_label}") # Go to else if false
+        self.thenpart.gen_code(code) # continue with if part if true
+        code.append(f"jump {self.exit_label}") # Jump to end of statement when done
+        code.append(f"{self.else_label}:") # Else label
+        self.elsepart.gen_code(code) # Else code
+        code.append(f"{self.exit_label}:") # Exit label
+
+
+

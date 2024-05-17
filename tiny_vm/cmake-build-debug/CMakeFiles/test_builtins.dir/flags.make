@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/seth/Desktop/tiny_vm/PRIVATE -I/home/seth/Desktop/tiny_vm -I/home/seth/Desktop/tiny_vm/cjson
+C_INCLUDES = -I/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/PRIVATE -I/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm -I/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson
 
 C_FLAGS = -std=gnu11
 

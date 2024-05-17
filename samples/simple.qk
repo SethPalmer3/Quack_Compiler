@@ -1,8 +1,2 @@
-class Test() extends Obj {
-	def test(a: Int) : Nothing{
-		a.print();
-	}
-}
-
-t = Test();
-t.test(42);
+x = 5 == 6;
+x.print();

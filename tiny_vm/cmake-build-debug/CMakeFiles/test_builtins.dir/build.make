@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/seth/Desktop/tiny_vm
+CMAKE_SOURCE_DIR = /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/seth/Desktop/tiny_vm/cmake-build-debug
+CMAKE_BINARY_DIR = /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test_builtins.dir/depend.make
@@ -72,120 +72,120 @@ include CMakeFiles/test_builtins.dir/flags.make
 ../vm_code_table.c: ../build_bytecode_table.py
 ../vm_code_table.c: ../vm_code_table.h
 ../vm_code_table.c: ../opdefs.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating ../vm_code_table.c"
-	python3 /home/seth/Desktop/tiny_vm/build_bytecode_table.py /home/seth/Desktop/tiny_vm/opdefs.txt /home/seth/Desktop/tiny_vm/vm_code_table.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating ../vm_code_table.c"
+	python3 /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/build_bytecode_table.py /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/opdefs.txt /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_code_table.c
 
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.o: ../cjson/cJSON.c
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/test_builtins.dir/cjson/cJSON.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/cjson/cJSON.c.o -MF CMakeFiles/test_builtins.dir/cjson/cJSON.c.o.d -o CMakeFiles/test_builtins.dir/cjson/cJSON.c.o -c /home/seth/Desktop/tiny_vm/cjson/cJSON.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/test_builtins.dir/cjson/cJSON.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/cjson/cJSON.c.o -MF CMakeFiles/test_builtins.dir/cjson/cJSON.c.o.d -o CMakeFiles/test_builtins.dir/cjson/cJSON.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.c
 
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/cjson/cJSON.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/cjson/cJSON.c > CMakeFiles/test_builtins.dir/cjson/cJSON.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.c > CMakeFiles/test_builtins.dir/cjson/cJSON.c.i
 
 CMakeFiles/test_builtins.dir/cjson/cJSON.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/cjson/cJSON.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/cjson/cJSON.c -o CMakeFiles/test_builtins.dir/cjson/cJSON.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cjson/cJSON.c -o CMakeFiles/test_builtins.dir/cjson/cJSON.c.s
 
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o: ../unit_tests/test_builtins.c
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o -MF CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o.d -o CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o -c /home/seth/Desktop/tiny_vm/unit_tests/test_builtins.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o -MF CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o.d -o CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/test_builtins.c
 
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/unit_tests/test_builtins.c > CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/test_builtins.c > CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.i
 
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/unit_tests/test_builtins.c -o CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/test_builtins.c -o CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.s
 
 CMakeFiles/test_builtins.dir/vm_core.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/vm_core.c.o: ../vm_core.c
 CMakeFiles/test_builtins.dir/vm_core.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/test_builtins.dir/vm_core.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_core.c.o -MF CMakeFiles/test_builtins.dir/vm_core.c.o.d -o CMakeFiles/test_builtins.dir/vm_core.c.o -c /home/seth/Desktop/tiny_vm/vm_core.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/test_builtins.dir/vm_core.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_core.c.o -MF CMakeFiles/test_builtins.dir/vm_core.c.o.d -o CMakeFiles/test_builtins.dir/vm_core.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.c
 
 CMakeFiles/test_builtins.dir/vm_core.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/vm_core.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/vm_core.c > CMakeFiles/test_builtins.dir/vm_core.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.c > CMakeFiles/test_builtins.dir/vm_core.c.i
 
 CMakeFiles/test_builtins.dir/vm_core.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/vm_core.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/vm_core.c -o CMakeFiles/test_builtins.dir/vm_core.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.c -o CMakeFiles/test_builtins.dir/vm_core.c.s
 
 CMakeFiles/test_builtins.dir/vm_state.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/vm_state.c.o: ../vm_state.c
 CMakeFiles/test_builtins.dir/vm_state.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/test_builtins.dir/vm_state.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_state.c.o -MF CMakeFiles/test_builtins.dir/vm_state.c.o.d -o CMakeFiles/test_builtins.dir/vm_state.c.o -c /home/seth/Desktop/tiny_vm/vm_state.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/test_builtins.dir/vm_state.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_state.c.o -MF CMakeFiles/test_builtins.dir/vm_state.c.o.d -o CMakeFiles/test_builtins.dir/vm_state.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.c
 
 CMakeFiles/test_builtins.dir/vm_state.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/vm_state.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/vm_state.c > CMakeFiles/test_builtins.dir/vm_state.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.c > CMakeFiles/test_builtins.dir/vm_state.c.i
 
 CMakeFiles/test_builtins.dir/vm_state.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/vm_state.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/vm_state.c -o CMakeFiles/test_builtins.dir/vm_state.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.c -o CMakeFiles/test_builtins.dir/vm_state.c.s
 
 CMakeFiles/test_builtins.dir/builtins.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/builtins.c.o: ../builtins.c
 CMakeFiles/test_builtins.dir/builtins.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/test_builtins.dir/builtins.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/builtins.c.o -MF CMakeFiles/test_builtins.dir/builtins.c.o.d -o CMakeFiles/test_builtins.dir/builtins.c.o -c /home/seth/Desktop/tiny_vm/builtins.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/test_builtins.dir/builtins.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/builtins.c.o -MF CMakeFiles/test_builtins.dir/builtins.c.o.d -o CMakeFiles/test_builtins.dir/builtins.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.c
 
 CMakeFiles/test_builtins.dir/builtins.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/builtins.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/builtins.c > CMakeFiles/test_builtins.dir/builtins.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.c > CMakeFiles/test_builtins.dir/builtins.c.i
 
 CMakeFiles/test_builtins.dir/builtins.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/builtins.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/builtins.c -o CMakeFiles/test_builtins.dir/builtins.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.c -o CMakeFiles/test_builtins.dir/builtins.c.s
 
 CMakeFiles/test_builtins.dir/vm_ops.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/vm_ops.c.o: ../vm_ops.c
 CMakeFiles/test_builtins.dir/vm_ops.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/test_builtins.dir/vm_ops.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_ops.c.o -MF CMakeFiles/test_builtins.dir/vm_ops.c.o.d -o CMakeFiles/test_builtins.dir/vm_ops.c.o -c /home/seth/Desktop/tiny_vm/vm_ops.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/test_builtins.dir/vm_ops.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_ops.c.o -MF CMakeFiles/test_builtins.dir/vm_ops.c.o.d -o CMakeFiles/test_builtins.dir/vm_ops.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.c
 
 CMakeFiles/test_builtins.dir/vm_ops.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/vm_ops.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/vm_ops.c > CMakeFiles/test_builtins.dir/vm_ops.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.c > CMakeFiles/test_builtins.dir/vm_ops.c.i
 
 CMakeFiles/test_builtins.dir/vm_ops.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/vm_ops.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/vm_ops.c -o CMakeFiles/test_builtins.dir/vm_ops.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.c -o CMakeFiles/test_builtins.dir/vm_ops.c.s
 
 CMakeFiles/test_builtins.dir/logger.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/logger.c.o: ../logger.c
 CMakeFiles/test_builtins.dir/logger.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/test_builtins.dir/logger.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/logger.c.o -MF CMakeFiles/test_builtins.dir/logger.c.o.d -o CMakeFiles/test_builtins.dir/logger.c.o -c /home/seth/Desktop/tiny_vm/logger.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/test_builtins.dir/logger.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/logger.c.o -MF CMakeFiles/test_builtins.dir/logger.c.o.d -o CMakeFiles/test_builtins.dir/logger.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.c
 
 CMakeFiles/test_builtins.dir/logger.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/logger.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/logger.c > CMakeFiles/test_builtins.dir/logger.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.c > CMakeFiles/test_builtins.dir/logger.c.i
 
 CMakeFiles/test_builtins.dir/logger.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/logger.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/logger.c -o CMakeFiles/test_builtins.dir/logger.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.c -o CMakeFiles/test_builtins.dir/logger.c.s
 
 CMakeFiles/test_builtins.dir/vm_code_table.c.o: CMakeFiles/test_builtins.dir/flags.make
 CMakeFiles/test_builtins.dir/vm_code_table.c.o: ../vm_code_table.c
 CMakeFiles/test_builtins.dir/vm_code_table.c.o: CMakeFiles/test_builtins.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/test_builtins.dir/vm_code_table.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_code_table.c.o -MF CMakeFiles/test_builtins.dir/vm_code_table.c.o.d -o CMakeFiles/test_builtins.dir/vm_code_table.c.o -c /home/seth/Desktop/tiny_vm/vm_code_table.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/test_builtins.dir/vm_code_table.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/test_builtins.dir/vm_code_table.c.o -MF CMakeFiles/test_builtins.dir/vm_code_table.c.o.d -o CMakeFiles/test_builtins.dir/vm_code_table.c.o -c /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_code_table.c
 
 CMakeFiles/test_builtins.dir/vm_code_table.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test_builtins.dir/vm_code_table.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/tiny_vm/vm_code_table.c > CMakeFiles/test_builtins.dir/vm_code_table.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_code_table.c > CMakeFiles/test_builtins.dir/vm_code_table.c.i
 
 CMakeFiles/test_builtins.dir/vm_code_table.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test_builtins.dir/vm_code_table.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/tiny_vm/vm_code_table.c -o CMakeFiles/test_builtins.dir/vm_code_table.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_code_table.c -o CMakeFiles/test_builtins.dir/vm_code_table.c.s
 
 # Object files for target test_builtins
 test_builtins_OBJECTS = \
@@ -211,7 +211,7 @@ test_builtins_EXTERNAL_OBJECTS =
 ../bin/test_builtins: CMakeFiles/test_builtins.dir/vm_code_table.c.o
 ../bin/test_builtins: CMakeFiles/test_builtins.dir/build.make
 ../bin/test_builtins: CMakeFiles/test_builtins.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable ../bin/test_builtins"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable ../bin/test_builtins"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_builtins.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -223,6 +223,6 @@ CMakeFiles/test_builtins.dir/clean:
 .PHONY : CMakeFiles/test_builtins.dir/clean
 
 CMakeFiles/test_builtins.dir/depend: ../vm_code_table.c
-	cd /home/seth/Desktop/tiny_vm/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/seth/Desktop/tiny_vm /home/seth/Desktop/tiny_vm /home/seth/Desktop/tiny_vm/cmake-build-debug /home/seth/Desktop/tiny_vm/cmake-build-debug /home/seth/Desktop/tiny_vm/cmake-build-debug/CMakeFiles/test_builtins.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/CMakeFiles/test_builtins.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test_builtins.dir/depend
 

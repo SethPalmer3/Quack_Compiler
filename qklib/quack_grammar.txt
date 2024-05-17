@@ -42,7 +42,6 @@ otherwise:  -> block   // This creates an annoying empty block
 
 _cond: expr
 ?expr: logop
-      | "(" logop ")"
 
 ?logop: comparison
       | logop "and" comparison -> and_op
@@ -52,6 +51,7 @@ _cond: expr
 ?comparison: sum
             | comparison "<" sum -> lessthan
             | comparison ">" sum -> greaterthan
+            | comparison "==" sum -> equal
 
 ?sum: product
    | sum "+" product -> add
@@ -61,19 +61,25 @@ _cond: expr
       | product "*" factor -> mul
       | product "/" factor -> div
 
-?factor: elem
+?factor: var 
       | factor "." ident "(" actuals ")" -> call
       | ident "(" actuals ")" -> class_init
 
-?elem: ident -> variable_ref
-      | constant
-
-actuals: [expr ("," expr)* ]
+?var: constant
+   | ident -> variable_ref
+   | "(" expr ")"
 
 constant: INT
          | ESCAPED_STRING
+         | BOOLEAN
+         | NOTHING
 
+
+NOTHING: "nothing"
+BOOLEAN: "true" | "false"
 ident: IDENT
+
+actuals: [expr ("," expr)* ]
 
 method: "def" name "(" formals ")" returns "{" block "}"
 returns: (":"  name)?

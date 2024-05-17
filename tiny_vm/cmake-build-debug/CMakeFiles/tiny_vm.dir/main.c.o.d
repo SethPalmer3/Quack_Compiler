@@ -1,4 +1,5 @@
-CMakeFiles/tiny_vm.dir/main.c.o: /home/seth/Desktop/tiny_vm/main.c \
+CMakeFiles/tiny_vm.dir/main.c.o: \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/main.c \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -31,6 +32,7 @@ CMakeFiles/tiny_vm.dir/main.c.o: /home/seth/Desktop/tiny_vm/main.c \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /home/seth/Desktop/tiny_vm/vm_state.h \
- /home/seth/Desktop/tiny_vm/vm_core.h /home/seth/Desktop/tiny_vm/logger.h \
- /home/seth/Desktop/tiny_vm/vm_loader.h
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_loader.h

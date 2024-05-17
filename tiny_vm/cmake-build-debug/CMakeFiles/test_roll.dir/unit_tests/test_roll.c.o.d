@@ -1,9 +1,12 @@
 CMakeFiles/test_roll.dir/unit_tests/test_roll.c.o: \
- /home/seth/Desktop/tiny_vm/unit_tests/test_roll.c \
- /usr/include/stdc-predef.h /home/seth/Desktop/tiny_vm/vm_state.h \
- /home/seth/Desktop/tiny_vm/vm_core.h /home/seth/Desktop/tiny_vm/logger.h \
- /home/seth/Desktop/tiny_vm/builtins.h \
- /home/seth/Desktop/tiny_vm/logger.h /usr/include/stdio.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/test_roll.c \
+ /usr/include/stdc-predef.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \

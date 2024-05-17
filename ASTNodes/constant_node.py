@@ -8,8 +8,6 @@ class ConstantNode(ASTNode):
         self.children = []
 
     def determine_type(self, e):
-        if e is None:
-            self.const_type = "Nothing"
         try:
             self.value = int(e.__str__())
             return "Int"

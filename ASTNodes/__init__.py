@@ -1,4 +1,6 @@
 from .util import *
+from .uuid_generator import uuid_gen
+
 from .ast_node import ASTNode, ignore
 from .constant_node import ConstantNode
 from .not_node import NotNode
@@ -16,3 +18,4 @@ from .member_node import MemberNode
 from .method_node import MethodNode
 from .class_node import ClassNode
 from .program_node import ProgramNode
+

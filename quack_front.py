@@ -90,6 +90,11 @@ class ASTBuilder(Transformer):
         params = e[1:]
         return MethodCallNode("greater", receiver, params)
 
+    def equal(self, e):
+        receiver = e[0]
+        params = e[1:]
+        return MethodCallNode("equals", receiver, params)
+
     def and_op(self, e):
         left, right = e
         return AndNode(left, right)
@@ -156,6 +161,17 @@ class ASTBuilder(Transformer):
         log.debug("->constant")
         return ConstantNode(e[0])
 
+    def BOOLEAN(self, e) -> ASTNode:
+        log.debug("->boolean")
+        b = ConstantNode(e.__str__())
+        b.const_type = "Bool"
+        return b
+
+    def NOTHING(self, e) ->ASTNode:
+        n = ConstantNode(e.__str__())
+        n.const_type = "Nothing"
+        return n
+
     def class_init(self, e) -> ASTNode:
         if e.__len__() > 1:
             params = e[1]
@@ -168,9 +184,6 @@ class ASTBuilder(Transformer):
             return e
         return []
 
-
-
-
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)
 
@@ -179,7 +192,7 @@ def generate_ast(
     grammar: str = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'quack_grammar.txt' ).read(),
     ast_builder: Transformer = ASTBuilder()
     ) -> tuple[ ASTNode, ParseTree ]:
-    quack_parser = Lark(grammar, parser="lalr", debug=True)  # Create parser
+    quack_parser = Lark(grammar)  # Create parser
     tree = quack_parser.parse(input_text) # Generate the parse tree from input_text and given grammar
     return ast_builder.transform(tree), tree  # Transform tree to the AST
 
@@ -210,7 +223,6 @@ def write_tmp_files(tmp_dir: pathlib.Path, codes: list[list[str]]):
 
 def main():
     DEBUG = True
-    # DEBUG = False
     args = cli()
     if args.run:
         DEBUG = False
@@ -233,8 +245,9 @@ def main():
     ast.gen_code(code)
     filename = pathlib.Path(args.source.__str__()).stem
     replace_main_class(filename, code)
-    class_codes = split_classes(ZERO_SPACE_CHAR, code)
-    write_tmp_files(pathlib.Path('./tmp/'), class_codes)
+    if not DEBUG:
+        class_codes = split_classes(ZERO_SPACE_CHAR, code)
+        write_tmp_files(pathlib.Path('./tmp/'), class_codes)
 
 
     print("\n".join(code))

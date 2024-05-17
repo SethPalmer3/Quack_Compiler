@@ -1,9 +1,10 @@
 CMakeFiles/test_builtins.dir/unit_tests/test_builtins.c.o: \
- /home/seth/Desktop/tiny_vm/unit_tests/test_builtins.c \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/test_builtins.c \
  /usr/include/stdc-predef.h \
- /home/seth/Desktop/tiny_vm/unit_tests/../builtins.h \
- /home/seth/Desktop/tiny_vm/unit_tests/../vm_core.h /usr/include/assert.h \
- /usr/include/features.h /usr/include/features-time64.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/../builtins.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/unit_tests/../vm_core.h \
+ /usr/include/assert.h /usr/include/features.h \
+ /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \

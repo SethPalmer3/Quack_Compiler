@@ -1,6 +1,6 @@
 CMakeFiles/test_builtins.dir/builtins.c.o: \
- /home/seth/Desktop/tiny_vm/builtins.c /usr/include/stdc-predef.h \
- /usr/include/stdio.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.c \
+ /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -50,7 +50,10 @@ CMakeFiles/test_builtins.dir/builtins.c.o: \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h /home/seth/Desktop/tiny_vm/builtins.h \
- /home/seth/Desktop/tiny_vm/vm_core.h /home/seth/Desktop/tiny_vm/logger.h \
- /home/seth/Desktop/tiny_vm/vm_ops.h \
- /home/seth/Desktop/tiny_vm/vm_state.h /usr/include/assert.h
+ /usr/include/strings.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/builtins.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_core.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/logger.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_ops.h \
+ /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/vm_state.h \
+ /usr/include/assert.h

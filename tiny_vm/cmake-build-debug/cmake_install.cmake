@@ -1,4 +1,4 @@
-# Install script for directory: /home/seth/Desktop/tiny_vm
+# Install script for directory: /home/seth/Desktop/quack_compiler/lark_parser/tiny_vm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/seth/Desktop/tiny_vm/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/seth/Desktop/quack_compiler/lark_parser/tiny_vm/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

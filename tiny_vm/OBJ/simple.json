@@ -20,11 +20,11 @@
     "constants": [
         {
             "kind": "i",
-            "value": "6"
+            "value": "11"
         },
         {
             "kind": "i",
-            "value": "5"
+            "value": "10"
         }
     ],
     "code": [
@@ -32,19 +32,13 @@
             "name": "$constructor",
             "slot": 0,
             "code": [
-                8,
-                1,
                 4,
                 1,
                 0,
                 1,
                 1,
                 2,
-                3,
-                10,
-                3,
-                9,
-                3,
+                4,
                 2,
                 2,
                 7,

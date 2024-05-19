@@ -57,8 +57,14 @@ class MethodNode(ASTNode):
             code.append(code_str)
 
         if local_scope['body'].keys().__len__() > 0: # Get local variables
-            for k in local_scope['body'].keys():
-                code.append(f".local {k.__str__()}")
+            local_var_str =".local "
+            for i, k in enumerate(local_scope['body'].keys()):
+                local_var_str += k.__str__()
+                if i < local_scope['body'].keys().__len__() - 1:
+                    local_var_str +=","
+
+            code.append(local_var_str)
+
         code.append(f"enter")
         for formal in self.formals:
             formal.gen_code(code)

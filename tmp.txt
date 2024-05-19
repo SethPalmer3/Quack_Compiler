@@ -1,12 +1,9 @@
 .class simple:Obj
 .method $constructor
-.local x
 enter
-const 6
-const 5
-call Int:equals
-store x
-load x
+const 11
+const 10
+call Int:less
 call Bool:print
 pop
 return 0

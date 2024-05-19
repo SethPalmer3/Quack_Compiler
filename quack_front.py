@@ -8,7 +8,6 @@ import argparse
 import json
 import sys
 import pprint
-# from ASTNodes.util import *
 
 from lark.tree import ParseTree
 
@@ -183,6 +182,12 @@ class ASTBuilder(Transformer):
         if e[0]:
             return e
         return []
+
+    def while_loop(self, e):
+        cond, stmts = e
+        return WhileNode(cond, stmts)
+
+
 
 def method_table_walk(node: ASTNode, visit_state: dict):
         node.method_table_visit(visit_state)

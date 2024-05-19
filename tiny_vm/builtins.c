@@ -551,7 +551,7 @@ vm_Word method_Int_less[] = {{.instr = vm_op_enter},
                              {.instr = vm_op_return},
                              {.intval = 1}};
 
-/* less (new native_method)  */
+/* greater (new native_method)  */
 obj_ref native_Int_greater(void) {
   obj_ref this = vm_fp->obj;
   assert_is_type(this, the_class_Int);

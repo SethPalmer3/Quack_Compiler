@@ -29,6 +29,9 @@ block: _stmt*
 _stmt: ifstmt
       | assignment ";"
       | expr ";"
+      | while_loop
+
+while_loop: "while" expr "{" block "}"
 
 assignment: name [":" name] "=" expr 
 

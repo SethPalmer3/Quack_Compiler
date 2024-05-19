@@ -2,6 +2,7 @@ from .util import *
 from .uuid_generator import uuid_gen
 
 from .ast_node import ASTNode, ignore
+from .while_node import WhileNode
 from .constant_node import ConstantNode
 from .not_node import NotNode
 from .or_node import OrNode

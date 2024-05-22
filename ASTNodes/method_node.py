@@ -36,10 +36,10 @@ class MethodNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
 
         _master_record["temp"] = {}
-        local_scope = {'params': [  ], 'ret': self.returns.__str__(), 'body': {}}
+        local_scope = {'params': {}, 'ret': self.returns.__str__(), 'body': {}}
         for f in self.formals:  # Construct parameters and their types
             _master_record['temp'][f'{f.var_name}'] = f.var_type.__str__()
-            local_scope['params'].append(f.var_type.__str__())
+            local_scope['params'][f'{f.var_name}'] = f.var_type.__str__()
         for stmt in self.body.children:
             if not isinstance(stmt, MethodCallNode):
                 loc_types = stmt.infer_type(_master_record) 
@@ -73,12 +73,10 @@ class MethodNode(ASTNode):
             code.append(local_var_str)
 
         code.append(f"enter")
-        for formal in self.formals:
-            formal.gen_code(code)
         self.body.gen_code(code)
         # TODO: Throw error if no return was given if one was defined to
         if self.return_stmt:
-            self.return_stmt.gen_code(code)
+            self.return_stmt.r_eval(code)
         else:
             code.append('const nothing')
         code.append(f"return {util.MR['current_method_arity']}")

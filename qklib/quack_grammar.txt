@@ -88,7 +88,7 @@ ident: IDENT
 actuals: [expr ("," expr)* ]
 
 method: "def" name "(" formals ")" returns "{" block return_stmt "}"
-?return_stmt: [ "return" expr ]
+?return_stmt: [ "return" expr ";" ]
 returns: (":"  name)?
 //?return_stmt: "return" expr
 

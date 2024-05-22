@@ -8,6 +8,10 @@ class OrNode(ASTNode):
         self.true_label = f"or_{uuid_gen.gen_uuid()}"
         self.end_label = f"or_end_{uuid_gen.gen_uuid()}"
 
+
+    def str(self) -> str:
+        return f"{self.left.str()} or {self.right.str()}"
+
     def __str__(self) -> str:
         return f"{ZERO_SPACE_CHAR}{self.left.__str__()} or {self.right.__str__()}"
     

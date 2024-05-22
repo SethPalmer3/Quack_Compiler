@@ -3,11 +3,13 @@
 .method set_a
 .args s
 enter
+const 2
 load s
+call Int:times
 load $
 store_field $:a
-const nothing
-return 0
+load s
+return 1
 .method $constructor
 enter
 const 5

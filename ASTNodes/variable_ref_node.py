@@ -29,7 +29,7 @@ class VariableRefNode(ASTNode):
             current_method = util.MR['current_method']
             if self.name in util.MR[current_class]['fields'].keys():
                 return {self.name: util.MR[current_class]['fields'][self.name]}
-            elif self.name in util.MR[current_class]['methods'][current_method]['params']:
+            elif self.name in util.MR[current_class]['methods'][current_method]['params'].keys():
                 return {self.name: util.MR[current_class]['methods'][current_method]['params'][self.name]}
             elif self.name in util.MR[current_class]['methods'][current_method]['body'].keys():
                 return {self.name: util.MR[current_class]['methods'][current_method]['body'][self.name]}
@@ -37,5 +37,5 @@ class VariableRefNode(ASTNode):
                 raise ValueError(f"Cannot find variable {self.name}")
 
     def gen_code(self, code: list[str]):
-        util.MR['current_method_arity'] -= 2
+        util.MR['current_method_arity'] -= 1
         code.append(f"store {self.name}")

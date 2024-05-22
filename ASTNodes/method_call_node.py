@@ -35,7 +35,7 @@ class MethodCallNode(ASTNode):
     
     def gen_code(self, code: list[str]):
         for p in self.params: # Load all parameters before call
-            p.gen_code(code)
+            p.r_eval(code)
         if isinstance(self.receiver, ClassNode):
             util.MR['current_method_arity'] += 1
             code.append(f"new {self.receiver.name}")
@@ -43,7 +43,7 @@ class MethodCallNode(ASTNode):
         else:
             self.receiver.r_eval(code)
             reciever_type = list(self.receiver.infer_type(util.MR).values())[0]
-            util.MR['current_method_arity'] -= self.params.__len__() + 1
+            util.MR['current_method_arity'] -= self.params.__len__() - 1
             code.append(f"call {reciever_type}:{self.name}")
             if util.MR[reciever_type]["methods"][self.name]['ret'] == 'Nothing':
                 code.append("pop")

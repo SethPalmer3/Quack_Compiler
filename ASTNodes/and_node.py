@@ -7,6 +7,10 @@ class AndNode(ASTNode):
         self.children = [left, right]
         self.true_label = uuid_gen.gen_label("and_")
         self.end_label = uuid_gen.gen_label("and_end_")
+
+    def str(self) -> str:
+        return f"{self.left.str()} and {self.right.str()}"
+
     def __str__(self) -> str:
         return f"{ZERO_SPACE_CHAR}{self.left.__str__()} and {self.right.__str__()}"
 

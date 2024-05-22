@@ -1,5 +1,4 @@
-from .ast_node import ASTNode
-from .util import *
+from . import *
 
 class ConstantNode(ASTNode):
     def __init__(self, e):
@@ -29,4 +28,5 @@ class ConstantNode(ASTNode):
     def gen_code(self, code: list[str]):
         if self.value is None:
             return
+        util.MR['current_method_arity'] += 1
         code.append(f"const {self.value}")

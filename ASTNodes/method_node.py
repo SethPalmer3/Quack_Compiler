@@ -13,6 +13,9 @@ class MethodNode(ASTNode):
         if self.return_stmt:
             self.children += [self.return_stmt]
 
+    def str(self):
+        return self.name
+
     def __str__(self):
         formals_str = ", ".join([str(fm) for fm in self.formals])
         full_ret =  f"""
@@ -34,19 +37,23 @@ class MethodNode(ASTNode):
 
         _master_record["temp"] = {}
         local_scope = {'params': [  ], 'ret': self.returns.__str__(), 'body': {}}
-        for f in self.formals:
+        for f in self.formals:  # Construct parameters and their types
             _master_record['temp'][f'{f.var_name}'] = f.var_type.__str__()
             local_scope['params'].append(f.var_type.__str__())
         for stmt in self.body.children:
             if not isinstance(stmt, MethodCallNode):
                 loc_types = stmt.infer_type(_master_record) 
-                local_scope['body'].update(loc_types)
-                _master_record["temp"].update(loc_types)
+                if not isinstance(stmt, FieldRefNode):
+                    local_scope['body'].update(loc_types)
+                    _master_record["temp"].update(loc_types)
         return local_scope
     
     def gen_code(self, code: list[str]):
+        util.MR['current_method'] = self.name
+        util.MR['current_method_arity'] = 0
         code.append(f".method {self.name}")
-        local_scope = self.infer_type(util.MR)
+        current_class = util.MR['current_class']
+        local_scope = util.MR[current_class]['methods'][self.name]
         if self.formals.__len__() > 0:
             code_str = ".args "
             for i, p in enumerate(self.formals):
@@ -69,10 +76,11 @@ class MethodNode(ASTNode):
         for formal in self.formals:
             formal.gen_code(code)
         self.body.gen_code(code)
+        # TODO: Throw error if no return was given if one was defined to
         if self.return_stmt:
             self.return_stmt.gen_code(code)
-            code.append("return 1")
         else:
-            code.append(f"return 0")
+            code.append('const nothing')
+        code.append(f"return {util.MR['current_method_arity']}")
 
 

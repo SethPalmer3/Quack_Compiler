@@ -9,7 +9,9 @@ from .or_node import OrNode
 from .and_node import AndNode
 from .cond_node import CondNode
 from .if_node import IfStmtNode
+from .this_node import ThisNode
 from .variable_ref_node import VariableRefNode
+from .field_ref_node import FieldRefNode
 from .method_call_node import MethodCallNode
 from .assignment_node import AssignmentNode
 from .expr_node import ExprNode

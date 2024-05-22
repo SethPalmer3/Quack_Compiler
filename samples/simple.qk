@@ -1,1 +1,11 @@
-(10 < 11).print();
+class Test() extends Obj {
+	def set_a(s: Int) {
+		this.a = s;
+	}
+	this.a = 5;
+
+}
+
+t = Test();
+t.set_a(6);
+t.a.print();

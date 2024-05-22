@@ -4,8 +4,8 @@
     "imports": [
         "simple",
         "Obj",
-        "Int",
-        "Bool"
+        "Test",
+        "Int"
     ],
     "methods": [
         "$constructor",
@@ -20,11 +20,7 @@
     "constants": [
         {
             "kind": "i",
-            "value": "11"
-        },
-        {
-            "kind": "i",
-            "value": "10"
+            "value": "6"
         }
     ],
     "code": [
@@ -32,16 +28,30 @@
             "name": "$constructor",
             "slot": 0,
             "code": [
+                8,
+                1,
                 4,
+                6,
+                2,
+                2,
+                0,
+                10,
+                3,
                 1,
                 0,
-                1,
-                1,
+                9,
+                3,
                 2,
                 4,
+                9,
+                3,
+                11,
+                0,
                 2,
                 2,
                 7,
+                9,
+                0,
                 5,
                 0
             ]

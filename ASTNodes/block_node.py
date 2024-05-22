@@ -13,5 +13,5 @@ class BlockNode(ASTNode):
 
     def gen_code(self, code: list[str]):
         for child in self.children:
-            child.gen_code(code)
+            child.r_eval(code)
 

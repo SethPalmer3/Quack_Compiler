@@ -1,10 +1,35 @@
-.class simple:Obj
+.class Test:Obj
+.field a
+.method set_a
+.args s
+enter
+load s
+load $
+store_field $:a
+const nothing
+return 0
 .method $constructor
 enter
-const 11
-const 10
-call Int:less
-call Bool:print
+const 5
+load $
+store_field $:a
+load $
+return 0
+​
+.class simple:Obj
+.method $constructor
+.local t
+enter
+new Test
+call Test:$constructor
+store t
+const 6
+load t
+call Test:set_a
+load t
+load_field Test:a
+call Int:print
 pop
+load $
 return 0
 ​

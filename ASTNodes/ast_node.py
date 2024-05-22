@@ -19,15 +19,19 @@ class ASTNode:
             child.walk(visit_state, pre_visit, post_visit)
         post_visit(self, visit_state)
 
+
+    # a slightly modified version of the string used for code generation
+    def str(self) -> str:
+        return self.__str__()
+
     # Example walk to gather method signatures
     def method_table_visit(self, visit_state: dict):
         ignore(self, visit_state)
 
-    def r_eval(self) -> list[str]:
-        """Evaluate for value"""
-        raise NotImplementedError(f"r_eval not implemented for node type {self.__class__.__name__}")
+    def r_eval(self, buffer: list[str]):
+        self.gen_code(buffer)
 
-    def c_eval(self, true_branch: str, false_branch: str) -> list[str]:
+    def c_eval(self, true_branch: str, false_branch: str, buffer: list[str]):
         raise NotImplementedError(f"c_eval not implemented for node type {self.__class__.__name__}")
 
     def infer_type(self, _master_record: dict ={}) -> dict:

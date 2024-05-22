@@ -9,8 +9,13 @@ class ConstantNode(ASTNode):
 
     def determine_type(self, e):
         try:
-            self.value = int(e.__str__())
-            return "Int"
+            if self.value.__str__() == 'nothing':
+                return "Nothing"
+            elif self.value.__str__() == 'true' or self.value.__str__() == 'false':
+                return "Bool"
+            else:
+                self.value = int(e.__str__())
+                return "Int"
         except ValueError as E:
             self.value = e.__str__()
             return "String"

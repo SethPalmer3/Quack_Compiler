@@ -33,7 +33,7 @@ _stmt: ifstmt
 
 while_loop: "while" expr "{" block "}"
 
-assignment: name [":" name] "=" expr 
+assignment: l_expr [":" name] "=" expr
 
 // An 'if' statement may have zero or more elifs and
 // zero or one else
@@ -69,14 +69,17 @@ _cond: expr
       | ident "(" actuals ")" -> class_init
 
 ?var: constant
-   | ident -> variable_ref
+   | l_expr
    | "(" expr ")"
 
 constant: INT
          | ESCAPED_STRING
          | BOOLEAN
          | NOTHING
+         | "this" -> this_ref
 
+?l_expr: ident -> variable_ref
+      | expr "." ident -> field_ref
 
 NOTHING: "nothing"
 BOOLEAN: "true" | "false"
@@ -84,7 +87,8 @@ ident: IDENT
 
 actuals: [expr ("," expr)* ]
 
-method: "def" name "(" formals ")" returns "{" block "}"
+method: "def" name "(" formals ")" returns "{" block return_stmt "}"
+?return_stmt: [ "return" expr ]
 returns: (":"  name)?
 //?return_stmt: "return" expr
 

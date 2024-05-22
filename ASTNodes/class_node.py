@@ -9,7 +9,7 @@ class ClassNode(ASTNode):
         self.name = name
         self.super_class = super_class
         self.methods = methods
-        self.constructor = MethodNode("$constructor", formals, name, block)
+        self.constructor = MethodNode("$constructor", formals, name, block, ThisNode())
         self.children = methods +  [self.constructor]
 
     def __str__(self):
@@ -39,12 +39,16 @@ class ClassNode(ASTNode):
         _master_record[f"{self.name.__str__()}"]['super'] = self.super_class.__str__()
         _master_record[f"{self.name.__str__()}"]['methods'] = {}
         _master_record[f"{self.name.__str__()}"]['fields'] = {}
+        _master_record['current_class'] = self.name.__str__()
         for m in self.children:
             _master_record[f"{self.name}"]['methods'][f"{m.name}"] = m.infer_type(_master_record)
         return {self.name: self.name}
     
     def gen_code(self, code: list[str]):
+        util.MR['current_class'] = self.name
         code.append(f".class {self.name}:{self.super_class}")
+        for f in util.MR[self.name]['fields'].keys():
+            code.append(f".field {f}")
         for child in self.children:
             child.gen_code(code)
         code.append(f"{ZERO_SPACE_CHAR}")

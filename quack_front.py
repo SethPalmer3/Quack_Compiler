@@ -13,9 +13,8 @@ from lark.tree import ParseTree
 
 from ASTNodes import *
 
+from ASTNodes.field_ref_node import FieldRefNode
 from type_inference import *
-
-sys.path.insert(1, './tiny_vm/')
 
 def cli():
     cli_parser = argparse.ArgumentParser()
@@ -54,8 +53,12 @@ class ASTBuilder(Transformer):
 
     def method(self, e):
         log.debug("->method")
-        name, formals, returns, body = e
-        return MethodNode(name.__str__(), formals, returns[0].__str__(), body)
+        name, formals, returns, body, return_stmt = e
+        if returns.__len__() > 0:
+            returns = returns[0].__str__()
+        else:
+            returns = None
+        return MethodNode(name.__str__(), formals, returns, body, return_stmt)
 
     def call(self, e):
         log.debug("->method call")
@@ -102,6 +105,9 @@ class ASTBuilder(Transformer):
         left, right = e
         return OrNode(left, right)
 
+    def not_op(self, e):
+        return NotNode(e[0])
+
     def add(self, e):
         receiver, params = e
         return MethodCallNode("plus", receiver, [params])
@@ -137,7 +143,7 @@ class ASTBuilder(Transformer):
         log.debug("->assignment")
 
         name, assign_type, rhs = e
-        return AssignmentNode(name.__str__(), assign_type, rhs)
+        return AssignmentNode(name, assign_type, rhs)
 
     def ifstmt(self, e) -> ASTNode:
         log.debug("->ifstmt")
@@ -186,6 +192,16 @@ class ASTBuilder(Transformer):
     def while_loop(self, e):
         cond, stmts = e
         return WhileNode(cond, stmts)
+    
+    def this_ref(self, _):
+        return ThisNode()
+    
+    def field_ref(self, e):
+        r_expr, field = e
+        return FieldRefNode(r_expr, field)
+
+    def class_ref(self, _):
+        pass
 
 
 
@@ -256,12 +272,6 @@ def main():
 
 
     print("\n".join(code))
-    # Build symbol table, starting with the hard-coded json table
-    # provided by Pranav.  We'll follow that structure for the rest
-    # builtins = open(pathlib.Path(__file__).parent.resolve() / 'qklib' / 'builtin_methods.json')
-    # symtab = json.load(builtins)
-    # ast.walk(symtab, method_table_walk)
-    # print(json.dumps(symtab,indent=4))
 
 
 if __name__ == "__main__":

@@ -1,11 +1,2 @@
-class Test() extends Obj {
-	def fib(a: Int) : Int {
-		return a;
-	}
-	return this;
-}
-
-t = Test();
-x = t.fib(21);
-x.print();
+("Hello" + "\n").print();
 return this;

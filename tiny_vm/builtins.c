@@ -284,33 +284,41 @@ vm_Word method_String_equals[] = {
     {.intval = 1} // consume other
 };
 
-/*String:plus*/
-obj_ref native_String_plus(void) {
+obj_ref native_String_plus(void){
   obj_ref this = vm_fp->obj;
   assert_is_type(this, the_class_String);
   obj_String this_str = (obj_String)this;
   obj_ref other = (vm_fp - 1)->obj;
   assert_is_type(other, the_class_String);
   obj_String other_str = (obj_String)other;
-  log_debug("Adding two strings \'%s\' and \'%s\'", this_str->text,
-            other_str->text);
-  char *s;
-  asprintf(&s, "%s%s", this_str->text, other_str->text);
-  obj_ref new_str = new_string(s);
-  return new_str;
+  
+  // Concatenate the strings
+  int len = strlen(this_str->text) + strlen(other_str->text);
+  char *result = malloc(len + 1);
+  strcpy(result, this_str->text);
+  strcat(result, other_str->text);
+  
+  // Create a new String object with the concatenated string
+  obj_ref new_string_obj = new_string(result);
+  
+  // Free the temporary string
+  free(result);
+  
+  return new_string_obj;
 }
 
 vm_Word method_String_plus[] = {
-    {.instr = vm_op_enter},
-    {.instr = vm_op_load},
-    {.intval = 0},
-    {.instr = vm_op_load},
-    {.intval = -1},
-    {.instr = vm_op_call_native},
-    {.native = native_String_plus},
-    {.instr = vm_op_return},
-    {.intval = 1},
+  {.instr = vm_op_enter},
+  {.instr = vm_op_load},
+  {.intval = 0}, // this
+  {.instr = vm_op_load},
+  {.intval = -1}, // other
+  {.instr = vm_op_call_native},
+  {.native = native_String_plus},
+  {.instr = vm_op_return},
+  {.intval = 1} // consume other
 };
+
 
 /* The String Class (a singleton) */
 struct class_struct the_class_String_struct = {

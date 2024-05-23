@@ -28,7 +28,7 @@ class IfStmtNode(ASTNode):
         return {}
     
     def gen_code(self, code: list[str]):
-        self.cond.gen_code(code) # Evaluate condition
+        self.cond.r_eval(code) # Evaluate condition
         code.append(f"jump_ifnot {self.else_label}") # Go to else if false
         self.thenpart.gen_code(code) # continue with if part if true
         code.append(f"jump {self.exit_label}") # Jump to end of statement when done

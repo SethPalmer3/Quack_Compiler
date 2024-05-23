@@ -35,4 +35,3 @@ call Bool:print
 pop
 load $
 return 0
-​

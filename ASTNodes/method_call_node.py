@@ -10,7 +10,8 @@ class MethodCallNode(ASTNode):
         self.children = params
 
     def str(self) -> str:
-        return self.name
+        # return self.name
+        return f"{self.receiver.str()}.{self.name}({ ','.join([p.str() for p in self.params]) })"
 
     def __str__(self) -> str:
         if isinstance(self.receiver, ClassNode):
@@ -38,11 +39,14 @@ class MethodCallNode(ASTNode):
     def gen_code(self, code: list[str]):
         for p in self.params: # Load all parameters before call
             p.r_eval(code)
-        if isinstance(self.receiver, ClassNode):
+        if isinstance(self.receiver, ClassNode):  # Instantiate a class
             util.MR[CURRENT_METHOD_ARITY] += 1
             code.append(f"new {self.receiver.name}")
             code.append(f"call {self.receiver.name}:$constructor")
-        else:
+        elif isinstance(self.receiver, ThisNode):  # inner class call
+            self.receiver.r_eval(code)
+            code.append(f"call $:{self.name}")
+        else:  # Everything else
             self.receiver.r_eval(code)
             reciever_type = retrieve_type(self.receiver, util.MR)
             util.MR[CURRENT_METHOD_ARITY] -= self.params.__len__() - 1

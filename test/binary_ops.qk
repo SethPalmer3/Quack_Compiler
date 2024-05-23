@@ -1,0 +1,8 @@
+a = true;
+b = false;
+
+(a or b).print();
+"\n".print();
+(a and b).print();
+"\n".print();
+(not a).print();

@@ -54,10 +54,8 @@ class MethodNode(ASTNode):
         util.MR[CURRENT_METHOD] = self.name
         util.MR[CURRENT_METHOD_ARITY] = 0
         current_class = util.MR[CURRENT_CLASS]
-        if util.MR[current_class][METHODS][self.name][RECURSIVE]:
-            code.append(f".method {self.name} forward")
-        else:
-            code.append(f".method {self.name}")
+
+        code.append(f".method {self.name}")
 
         local_scope = util.MR[current_class][METHODS][self.name]
         if self.formals.__len__() > 0:
@@ -80,8 +78,11 @@ class MethodNode(ASTNode):
 
         code.append(f"enter")
         self.body.gen_code(code)
-        if self.returns == "Nothing":
+        if self.returns == "Nothing" :
             code.append("const nothing")
+            code.append(f"return {self.formals.__len__()}")
+        elif self.name == CONSTRUCTOR:
+            code.append("load $")
             code.append(f"return {self.formals.__len__()}")
 
 

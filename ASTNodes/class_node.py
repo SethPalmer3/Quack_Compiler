@@ -9,7 +9,7 @@ class ClassNode(ASTNode):
         self.name = name
         self.super_class = super_class
         self.methods = methods
-        self.constructor = MethodNode("$constructor", formals, name, block)
+        self.constructor = MethodNode(CONSTRUCTOR, formals, name, block)
         self.children = methods +  [self.constructor]
 
     def __str__(self):
@@ -47,6 +47,9 @@ class ClassNode(ASTNode):
     def gen_code(self, code: list[str]):
         util.MR[CURRENT_CLASS] = self.name
         code.append(f".class {self.name}:{self.super_class}")
+        for method_name, method_info in util.MR[self.name][METHODS].items():
+            if method_info[RECURSIVE]:
+                code.append(f".method {method_name} forward")
         for f in util.MR[self.name][FIELDS].keys():
             code.append(f".field {f}")
         for child in self.children:

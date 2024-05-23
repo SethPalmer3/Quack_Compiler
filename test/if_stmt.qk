@@ -1,0 +1,10 @@
+x = 6;
+x.print();
+" < 10:\n".print();
+
+if x < 10{
+	"This is true!".print();
+}else{
+	"This isn't true".print();
+}
+

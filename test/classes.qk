@@ -1,0 +1,14 @@
+class Test(a: Int) extends Obj{
+	def test_method(param: Int) : Int {
+		this.a = param * 2;
+		return param * 2;
+	}
+	this.a = a;
+}
+
+t = Test(10);
+t.a.print();
+"\n".print();
+x = t.test_method(6);
+x.print();
+

@@ -1,10 +1,22 @@
 .class Test:Obj
-.method fib
+.field a
+.method test_method
+.args param
+enter
+const 2
+load param
+call Int:times
+load $
+store_field $:a
+const 2
+load param
+call Int:times
+return 1
+.method $constructor
 .args a
 enter
 load a
-return 1
-.method $constructor
-enter
 load $
-return 0
+store_field $:a
+load $
+return 1

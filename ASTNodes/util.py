@@ -19,6 +19,7 @@ RET = "ret"
 TEMP = "temp"
 FIELDS = "fields"
 RECURSIVE = "recursive"
+CONSTRUCTOR = "$constructor"
 
 
 MR = {}

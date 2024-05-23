@@ -6,10 +6,16 @@ def ignore(node: "ASTNode", visit_state):
     return
 
 def retrieve_type(n: "ASTNode", _master_record: dict):
+    inf_type = n.infer_type(_master_record)
     try:
-        return n.infer_type(_master_record)[n.str()]
+        if n.__getattribute__("name") and n.__getattribute__("name") in inf_type.keys():
+            return inf_type[n.__getattribute__("name")]
+
     except:
-        return n.infer_type(_master_record)[n.name]
+        if n.str() in inf_type.keys():
+            return inf_type[n.str()]
+        else:
+            return list(inf_type.values())[0]
 
 class ASTNode:
     """Abstract base class"""

@@ -30,12 +30,13 @@ _stmt: ifstmt
       | assignment ";"
       | expr ";"
       | while_loop
+      | return_stmt ";"
 
 while_loop: "while" expr "{" block "}"
 
 assignment: l_expr [":" name] "=" expr
 
-// An 'if' statement may have zero or more elifs and
+// An 'if' may have zero or more elifs and
 // zero or one else
 ifstmt: "if" _cond  _curlyblock otherwise
 _curlyblock: "{" block "}"
@@ -43,9 +44,13 @@ otherwise:  -> block   // This creates an annoying empty block
    | "else" _curlyblock -> elseblock
    | "elif" _cond _curlyblock otherwise -> ifstmt
 
+return_stmt : "return" [expr]
+
+typecase : "typecase" expr "{" (type_alts)* "}"
+type_alts : ident ":" ident "{" block "}"
+
 _cond: expr
 ?expr: logop
-      | "return" logop -> return_stmt
 
 ?logop: comparison
       | logop "and" comparison -> and_op

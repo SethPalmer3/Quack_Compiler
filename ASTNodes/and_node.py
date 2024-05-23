@@ -31,9 +31,9 @@ class AndNode(ASTNode):
     def gen_code(self, code: list[str]):
         short_and = uuid_gen.gen_label("short_and")
         code.append("const false")
-        self.left.gen_code(code)
+        self.left.r_eval(code)
         code.append(f"jump_ifnot {short_and}")
         code.append(f"pop")
-        self.right.gen_code(code)
+        self.right.r_eval(code)
         code.append(f"{short_and}:")
         

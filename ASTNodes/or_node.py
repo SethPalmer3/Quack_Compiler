@@ -30,9 +30,9 @@ class OrNode(ASTNode):
     def gen_code(self, code: list[str]):
         short_or = uuid_gen.gen_label("short_or")
         code.append("const true")
-        self.left.gen_code(code)
+        self.left.r_eval(code)
         code.append(f"jump_if {short_or}")
         code.append(f"pop")
-        self.right.gen_code(code)
+        self.right.r_eval(code)
         code.append(f"{short_or}:")
 

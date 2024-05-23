@@ -28,5 +28,5 @@ class ConstantNode(ASTNode):
     def gen_code(self, code: list[str]):
         if self.value is None:
             return
-        util.MR['current_method_arity'] += 1
+        util.MR[CURRENT_METHOD_ARITY] += 1
         code.append(f"const {self.value}")

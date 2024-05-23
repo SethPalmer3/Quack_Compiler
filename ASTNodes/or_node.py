@@ -14,11 +14,15 @@ class OrNode(ASTNode):
 
     def __str__(self) -> str:
         return f"{ZERO_SPACE_CHAR}{self.left.__str__()} or {self.right.__str__()}"
+
+    def c_eval(self, true_branch: str, false_branch: str, buffer: list[str]):
+        # TODO: implement this
+        pass
     
     def infer_type(self, _master_record: dict = ...) -> dict:
         # TODO: Add checks for lhs and rhs being boolean
-        left_type = list(self.left.infer_type(_master_record).values())[0]
-        right_type = list(self.right.infer_type(_master_record).values())[0]
+        left_type = retrieve_type(self.left, _master_record)
+        right_type = retrieve_type(self.right, _master_record)
         if left_type != "Bool" or right_type != "Bool":
             raise ValueError("Left or right `or` expressions do not evaluate to booleans")
         return {self.true_label: "Bool"}

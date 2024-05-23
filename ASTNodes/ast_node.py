@@ -5,6 +5,12 @@ def ignore(node: "ASTNode", visit_state):
     log.debug(f"No visitor action at {node.__class__.__name__} node")
     return
 
+def retrieve_type(n: "ASTNode", _master_record: dict):
+    try:
+        return n.infer_type(_master_record)[n.str()]
+    except:
+        return n.infer_type(_master_record)[n.name]
+
 class ASTNode:
     """Abstract base class"""
     def __init__(self):

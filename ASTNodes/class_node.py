@@ -9,7 +9,7 @@ class ClassNode(ASTNode):
         self.name = name
         self.super_class = super_class
         self.methods = methods
-        self.constructor = MethodNode("$constructor", formals, name, block, ThisNode())
+        self.constructor = MethodNode("$constructor", formals, name, block)
         self.children = methods +  [self.constructor]
 
     def __str__(self):
@@ -27,27 +27,27 @@ class ClassNode(ASTNode):
         """Create class entry in symbol table (as a preorder visit)"""
         if self.name in visit_state:
             raise Exception(f"Shadowing class {self.name} is not permitted")
-        visit_state["current_class"] = self.name
+        visit_state[CURRENT_CLASS] = self.name
         visit_state[self.name] = {
             "super": self.super_class,
-            "fields": [],
-            "methods": {}
+            FIELDS: [],
+            METHODS: {}
         }
 
     def infer_type(self, _master_record: dict = ...) -> dict:
         _master_record[f"{self.name.__str__()}"] = {}
         _master_record[f"{self.name.__str__()}"]['super'] = self.super_class.__str__()
-        _master_record[f"{self.name.__str__()}"]['methods'] = {}
-        _master_record[f"{self.name.__str__()}"]['fields'] = {}
-        _master_record['current_class'] = self.name.__str__()
+        _master_record[f"{self.name.__str__()}"][METHODS] = {}
+        _master_record[f"{self.name.__str__()}"][FIELDS] = {}
+        _master_record[CURRENT_CLASS] = self.name.__str__()
         for m in self.children:
-            _master_record[f"{self.name}"]['methods'][f"{m.name}"] = m.infer_type(_master_record)
+            m.infer_type(_master_record)
         return {self.name: self.name}
     
     def gen_code(self, code: list[str]):
-        util.MR['current_class'] = self.name
+        util.MR[CURRENT_CLASS] = self.name
         code.append(f".class {self.name}:{self.super_class}")
-        for f in util.MR[self.name]['fields'].keys():
+        for f in util.MR[self.name][FIELDS].keys():
             code.append(f".field {f}")
         for child in self.children:
             child.gen_code(code)

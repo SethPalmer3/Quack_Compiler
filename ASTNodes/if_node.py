@@ -22,9 +22,9 @@ class IfStmtNode(ASTNode):
 {ZERO_SPACE_CHAR}{RB}"""
     
     def infer_type(self, _master_record: dict = ...) -> dict:
-        # cond = list(self.cond.infer_type(_master_record).values())[0]
-        # TODO: Add check for condition
-        # TODO: Possibly update thenpart and elsepart
+        self.cond.infer_type(_master_record)
+        self.thenpart.infer_type(_master_record)
+        self.elsepart.infer_type(_master_record)
         return {}
     
     def gen_code(self, code: list[str]):

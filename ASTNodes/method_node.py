@@ -3,15 +3,12 @@ import uuid
 
 class MethodNode(ASTNode):
     def __init__(self, name: str, formals: list[ASTNode],
-                 returns: str, body: ASTNode, return_stmt: ASTNode|None=None):
+                 returns: str, body: ASTNode):
         self.name = name
         self.formals = formals
         self.returns = returns
         self.body = body
-        self.return_stmt = return_stmt
         self.children = [formals, body]
-        if self.return_stmt:
-            self.children += [self.return_stmt]
 
     def str(self):
         return self.name
@@ -27,33 +24,42 @@ class MethodNode(ASTNode):
 
     # Add this method to the symbol table
     def method_table_visit(self, visit_state: dict):
-        clazz = visit_state["current_class"]
-        if self.name in visit_state[clazz]["methods"]:
+        clazz = visit_state[CURRENT_CLASS]
+        if self.name in visit_state[clazz][METHODS]:
             raise Exception(f"Redeclaration of method {self.name} not permitted")
         params = [formal.var_type for formal in self.formals]
-        visit_state[clazz]["methods"][self.name] = { "params": params, "ret": self.returns }
+        visit_state[clazz][METHODS][self.name] = { PARAMS: params, RET: self.returns }
 
     def infer_type(self, _master_record: dict = ...) -> dict:
 
-        _master_record["temp"] = {}
-        local_scope = {'params': {}, 'ret': self.returns.__str__(), 'body': {}}
+        _master_record[TEMP] = {}
+        _master_record[CURRENT_METHOD] = self.name
+        current_class = _master_record[CURRENT_CLASS]
+
+        _master_record[current_class][METHODS][self.name] = {PARAMS: {}, RET: self.returns.__str__(), BODY: {}, RECURSIVE: False}
         for f in self.formals:  # Construct parameters and their types
-            _master_record['temp'][f'{f.var_name}'] = f.var_type.__str__()
-            local_scope['params'][f'{f.var_name}'] = f.var_type.__str__()
+            _master_record[TEMP][f'{f.var_name}'] = f.var_type.__str__()
+            _master_record[current_class][METHODS][self.name][PARAMS][f'{f.var_name}'] = f.var_type.__str__()
         for stmt in self.body.children:
-            if not isinstance(stmt, MethodCallNode):
+            if isinstance(stmt, MethodCallNode) and stmt.name == self.name:
+                _master_record[current_class][METHODS][self.name][RECURSIVE] = True
+            else:
                 loc_types = stmt.infer_type(_master_record) 
-                if not isinstance(stmt, FieldRefNode):
-                    local_scope['body'].update(loc_types)
-                    _master_record["temp"].update(loc_types)
-        return local_scope
+                if isinstance(stmt, AssignmentNode):
+                    _master_record[current_class][METHODS][self.name][BODY].update(loc_types)
+                    _master_record[TEMP].update(loc_types)
+        return _master_record[current_class][METHODS][self.name]
     
     def gen_code(self, code: list[str]):
-        util.MR['current_method'] = self.name
-        util.MR['current_method_arity'] = 0
-        code.append(f".method {self.name}")
-        current_class = util.MR['current_class']
-        local_scope = util.MR[current_class]['methods'][self.name]
+        util.MR[CURRENT_METHOD] = self.name
+        util.MR[CURRENT_METHOD_ARITY] = 0
+        current_class = util.MR[CURRENT_CLASS]
+        if util.MR[current_class][METHODS][self.name][RECURSIVE]:
+            code.append(f".method {self.name} forward")
+        else:
+            code.append(f".method {self.name}")
+
+        local_scope = util.MR[current_class][METHODS][self.name]
         if self.formals.__len__() > 0:
             code_str = ".args "
             for i, p in enumerate(self.formals):
@@ -63,22 +69,19 @@ class MethodNode(ASTNode):
                     code_str += f"{p.var_name}"
             code.append(code_str)
 
-        if local_scope['body'].keys().__len__() > 0: # Get local variables
+        if local_scope[BODY].keys().__len__() > 0: # Get local variables
             local_var_str =".local "
-            for i, k in enumerate(local_scope['body'].keys()):
+            for i, k in enumerate(local_scope[BODY].keys()):
                 local_var_str += k.__str__()
-                if i < local_scope['body'].keys().__len__() - 1:
-                    local_var_str +=","
+                if i < local_scope[BODY].keys().__len__() - 1:
+                    local_var_str += ","
 
             code.append(local_var_str)
 
         code.append(f"enter")
         self.body.gen_code(code)
-        # TODO: Throw error if no return was given if one was defined to
-        if self.return_stmt:
-            self.return_stmt.r_eval(code)
-        else:
-            code.append('const nothing')
-        code.append(f"return {util.MR['current_method_arity']}")
+        if self.returns == "Nothing":
+            code.append("const nothing")
+            code.append(f"return {self.formals.__len__()}")
 
 

@@ -1,9 +1,28 @@
-.class simple:Obj
+.class Test:Obj
+.method fib
+.args a
+enter
+load a
+return 1
 .method $constructor
 enter
-const "\n"
-const "a"
-call String:plus
 load $
-return 3
+return 0
+​
+.class simple:Obj
+.method $constructor
+.local t,x
+enter
+new Test
+call Test:$constructor
+store t
+const 21
+load t
+call Test:fib
+store x
+load x
+call Int:print
+pop
+load $
+return 0
 ​

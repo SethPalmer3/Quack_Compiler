@@ -10,7 +10,7 @@ class ExprNode(ASTNode):
         return ZERO_SPACE_CHAR + str(self.e)
 
     def infer_type(self, _master_record: dict = ...) -> dict:
-        inner_expr = list(self.e.infer_type(_master_record).values())[0]
+        inner_expr = retrieve_type(self.e, _master_record)
         return {"expr": inner_expr}
     
     def gen_code(self, code: list[str]):

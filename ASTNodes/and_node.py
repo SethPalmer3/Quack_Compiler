@@ -11,7 +11,7 @@ class AndNode(ASTNode):
     def str(self) -> str:
         return f"{self.left.str()} and {self.right.str()}"
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{ZERO_SPACE_CHAR}{self.left.__str__()} and {self.right.__str__()}"
 
     def c_eval(self, true_branch: str, false_branch: str, buffer: list[str]):
@@ -22,8 +22,8 @@ class AndNode(ASTNode):
     
     def infer_type(self, _master_record: dict = ...) -> dict:
         # TODO: add checks for left and right hand sides
-        left_type = list(self.left.infer_type(_master_record).values())[0]
-        right_type = list(self.right.infer_type(_master_record).values())[0]
+        left_type = retrieve_type(self.left, _master_record)
+        right_type = retrieve_type(self.right, _master_record)
         if left_type != "Bool" or right_type != "Bool":
             raise ValueError("Left or right `and` expressions do not evaluate to booleans")
         return {self.true_label: "Bool"}

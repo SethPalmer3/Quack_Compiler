@@ -9,11 +9,21 @@ ZERO_SPACE_CHAR = '\u200B'
 TAB_CHAR = '  '
 LB = "{"
 RB = "}"
+CURRENT_CLASS = "current_class"
+CURRENT_METHOD = "current_method"
+CURRENT_METHOD_ARITY = "current_method_arity"
+METHODS = "methods"
+PARAMS = "params"
+BODY = "body"
+RET = "ret"
+TEMP = "temp"
+FIELDS = "fields"
+RECURSIVE = "recursive"
+
 
 MR = {}
 
 class_table = {}
-
 
 def flatten(m: list):
     """Flatten nested lists into a single level of list"""

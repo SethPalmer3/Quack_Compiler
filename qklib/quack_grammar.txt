@@ -45,6 +45,7 @@ otherwise:  -> block   // This creates an annoying empty block
 
 _cond: expr
 ?expr: logop
+      | "return" logop -> return_stmt
 
 ?logop: comparison
       | logop "and" comparison -> and_op
@@ -72,7 +73,7 @@ _cond: expr
    | l_expr
    | "(" expr ")"
 
-constant: INT
+constant: SIGNED_INT
          | ESCAPED_STRING
          | BOOLEAN
          | NOTHING
@@ -87,8 +88,7 @@ ident: IDENT
 
 actuals: [expr ("," expr)* ]
 
-method: "def" name "(" formals ")" returns "{" block return_stmt "}"
-?return_stmt: [ "return" expr ";" ]
+method: "def" name "(" formals ")" returns "{" block "}"
 returns: (":"  name)?
 //?return_stmt: "return" expr
 
@@ -96,6 +96,6 @@ IDENT: /[_a-zA-Z][_a-zA-Z0-9]*/
 
 
 %import common.WS
-%import common.INT
+%import common.SIGNED_INT
 %import common.ESCAPED_STRING
 %ignore WS

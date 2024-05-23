@@ -12,14 +12,14 @@ class FieldRefNode(ASTNode):
 
     def r_eval(self, buffer: list[str]):
         self.r_expr.r_eval(buffer)
-        current_class = util.MR['current_class']
-        current_method = util.MR['current_method']
+        current_class = util.MR[CURRENT_CLASS]
+        current_method = util.MR[CURRENT_METHOD]
         try:
-            receiver_type = util.MR[current_class]['methods'][current_method]['body'][self.r_expr.str()]
+            receiver_type = util.MR[current_class][METHODS][current_method][BODY][self.r_expr.str()]
         except:
-            receiver_type = util.MR[current_class]['methods'][current_method]['params'][self.r_expr.str()]
+            receiver_type = util.MR[current_class][METHODS][current_method][PARAMS][self.r_expr.str()]
 
-        util.MR['current_method_arity'] += 1;
+        util.MR[CURRENT_METHOD_ARITY] += 1;
         buffer.append(f"load_field {receiver_type}:{self.name}")
 
     def str(self):
@@ -29,17 +29,17 @@ class FieldRefNode(ASTNode):
         return ZERO_SPACE_CHAR + f"{self.r_expr.str()}.{self.name}"
 
     def infer_type(self, _master_record: dict = ...) -> dict:
-        class_type = list(self.r_expr.infer_type(_master_record).values())[0]
-        if self.name in _master_record[class_type]['fields'].keys():
-            return {self.name: _master_record[class_type]['fields'][self.name]}
+        class_type = retrieve_type(self.r_expr, _master_record)
+        if self.name in _master_record[class_type][FIELDS].keys():
+            return {self.name: _master_record[class_type][FIELDS][self.name]}
         else:
-            _master_record[class_type]['fields'][self.name] = '' # Because we don't know what this is assigned to yet
+            _master_record[class_type][FIELDS][self.name] = '' # Because we don't know what this is assigned to yet
             return {self.str(): class_type}
 
     def gen_code(self, code: list[str]):
-        base_type = list(self.r_expr.infer_type(util.MR).values())[0]
+        base_type = retrieve_type(self.r_expr, util.MR)
         self.r_expr.r_eval(code)
-        util.MR['current_method_arity'] -= 2
+        util.MR[CURRENT_METHOD_ARITY] -= 2
         if isinstance(self.r_expr, ThisNode):
             code.append(f"store_field $:{self.name}")
         else:

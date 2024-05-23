@@ -53,12 +53,12 @@ class ASTBuilder(Transformer):
 
     def method(self, e):
         log.debug("->method")
-        name, formals, returns, body, return_stmt = e
+        name, formals, returns, body = e
         if returns.__len__() > 0:
             returns = returns[0].__str__()
         else:
-            returns = None
-        return MethodNode(name.__str__(), formals, returns, body, return_stmt)
+            returns = "Nothing"
+        return MethodNode(name.__str__(), formals, returns, body)
 
     def call(self, e):
         log.debug("->method call")
@@ -202,6 +202,9 @@ class ASTBuilder(Transformer):
 
     def class_ref(self, _):
         pass
+
+    def return_stmt(self, e):
+        return ReturnNode(e[0])
 
 
 

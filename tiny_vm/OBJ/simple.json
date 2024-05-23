@@ -4,7 +4,8 @@
     "imports": [
         "simple",
         "Obj",
-        "String"
+        "Test",
+        "Int"
     ],
     "methods": [
         "$constructor",
@@ -18,12 +19,8 @@
     "n_inherited": 4,
     "constants": [
         {
-            "kind": "s",
-            "value": "\n"
-        },
-        {
-            "kind": "s",
-            "value": "a"
+            "kind": "i",
+            "value": "21"
         }
     ],
     "code": [
@@ -31,17 +28,32 @@
             "name": "$constructor",
             "slot": 0,
             "code": [
+                8,
+                2,
                 4,
+                6,
+                2,
+                2,
+                0,
+                10,
+                3,
                 1,
                 0,
-                1,
-                1,
+                9,
+                3,
                 2,
-                5,
+                4,
+                10,
+                4,
+                9,
+                4,
+                2,
+                2,
+                7,
                 9,
                 0,
                 5,
-                3
+                0
             ]
         }
     ]

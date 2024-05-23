@@ -10,7 +10,7 @@ class VariableRefNode(ASTNode):
         self.children = []
 
     def r_eval(self, buffer: list[str]):
-        util.MR['current_method_arity'] += 1;
+        util.MR[CURRENT_METHOD_ARITY] += 1;
         buffer.append(f"load {self.name}")
 
     def str(self):
@@ -22,20 +22,20 @@ class VariableRefNode(ASTNode):
     def infer_type(self, _master_record: dict = ...) -> dict:
 
         try:
-            if self.name in _master_record['temp'].keys():
-                return {self.name: _master_record['temp'][self.name]}
+            if self.name in _master_record[TEMP].keys():
+                return {self.name: _master_record[TEMP][self.name]}
         except:
-            current_class = util.MR['current_class']
-            current_method = util.MR['current_method']
-            if self.name in util.MR[current_class]['fields'].keys():
-                return {self.name: util.MR[current_class]['fields'][self.name]}
-            elif self.name in util.MR[current_class]['methods'][current_method]['params'].keys():
-                return {self.name: util.MR[current_class]['methods'][current_method]['params'][self.name]}
-            elif self.name in util.MR[current_class]['methods'][current_method]['body'].keys():
-                return {self.name: util.MR[current_class]['methods'][current_method]['body'][self.name]}
+            current_class = util.MR[CURRENT_CLASS]
+            current_method = util.MR[CURRENT_METHOD]
+            if self.name in util.MR[current_class][FIELDS].keys():
+                return {self.name: util.MR[current_class][FIELDS][self.name]}
+            elif self.name in util.MR[current_class][METHODS][current_method][PARAMS].keys():
+                return {self.name: util.MR[current_class][METHODS][current_method][PARAMS][self.name]}
+            elif self.name in util.MR[current_class][METHODS][current_method][BODY].keys():
+                return {self.name: util.MR[current_class][METHODS][current_method][BODY][self.name]}
             else:
                 raise ValueError(f"Cannot find variable {self.name}")
 
     def gen_code(self, code: list[str]):
-        util.MR['current_method_arity'] -= 1
+        util.MR[CURRENT_METHOD_ARITY] -= 1
         code.append(f"store {self.name}")

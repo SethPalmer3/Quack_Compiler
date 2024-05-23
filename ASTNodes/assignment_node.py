@@ -25,22 +25,22 @@ class AssignmentNode(ASTNode):
         if self.assign_type:
             # TODO: Add check for declared type and given rhs
             return {self.l_expr.str(): self.assign_type.__str__()}
-        elif self.l_expr.str() in _master_record['temp'].keys():
-            self.assign_type = _master_record["temp"][f"{self.l_expr.str()}"]
-            calc_type = list(self.rhs.infer_type(_master_record).values())[0]
+        elif self.l_expr.str() in _master_record[TEMP].keys():
+            self.assign_type = _master_record[TEMP][f"{self.l_expr.str()}"]
+            calc_type = retrieve_type(self.rhs, _master_record)
             new_type = LCA(self.assign_type, calc_type, _master_record)
             self.assign_type = new_type
-            _master_record["temp"][f"{self.l_expr.str()}"] = new_type
+            _master_record[TEMP][f"{self.l_expr.str()}"] = new_type
             
             return {}
         elif isinstance(self.l_expr, FieldRefNode):
-            class_type = list(self.l_expr.infer_type(_master_record).values())[0] # Get which class this field is referring to
-            calc_type = list(self.rhs.infer_type(_master_record).values())[0] # Calculate the type from right hand side
-            _master_record[class_type]['fields'][self.l_expr.name] = calc_type # update master record with new type
+            class_type = retrieve_type(self.l_expr, _master_record) # Get which class this field is referring to
+            calc_type = retrieve_type(self.rhs, _master_record) # Calculate the type from right hand side
+            _master_record[class_type][FIELDS][self.l_expr.name] = calc_type # update master record with new type
             self.assign_type = calc_type
             return {}
         else:
-            assign_type = list(self.rhs.infer_type(_master_record).values())[0]
+            assign_type = retrieve_type(self.rhs, _master_record)
             self.assign_type = assign_type
             return {self.l_expr.str(): assign_type}
     

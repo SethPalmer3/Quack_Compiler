@@ -1,8 +1,16 @@
 .class simple:Obj
 .method $constructor
+.local t,x
 enter
-const "\n"
-const "a"
-call String:plus
+new Test
+call Test:$constructor
+store t
+const 21
+load t
+call Test:fib
+store x
+load x
+call Int:print
+pop
 load $
-return 3
+return 0

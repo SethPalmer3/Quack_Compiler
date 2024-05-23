@@ -12,13 +12,13 @@ class ThisNode(ASTNode):
         return f'{ZERO_SPACE_CHAR}this'
 
     def r_eval(self, buffer: list[str]):
-        util.MR['current_method_arity'] += 1
+        util.MR[CURRENT_METHOD_ARITY] += 1
         buffer.append("load $")
 
     def gen_code(self, code: list[str]):
-        util.MR['current_method_arity'] += 1
+        util.MR[CURRENT_METHOD_ARITY] += 1
         code.append("load $")
 
     def infer_type(self, _master_record: dict = ...) -> dict:
-        return {'$': _master_record['current_class']}
+        return {'$': _master_record[CURRENT_CLASS]}
 

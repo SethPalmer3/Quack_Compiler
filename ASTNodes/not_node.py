@@ -17,6 +17,6 @@ class NotNode(ASTNode):
         return {f"not_{self.uuid}": "Bool"}
 
     def gen_code(self, code: list[str]):
+        self.e.r_eval(code)
         code.append("const false")
-        self.e.gen_code(code)
         code.append("call Bool:equal")

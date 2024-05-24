@@ -206,6 +206,9 @@ class ASTBuilder(Transformer):
     def return_stmt(self, e):
         return ReturnNode(e[0])
 
+    def negation(self, e):
+        return MethodCallNode("minus", ConstantNode(0), e)
+
 
 
 def method_table_walk(node: ASTNode, visit_state: dict):
@@ -251,7 +254,7 @@ def main():
     if args.run:
         DEBUG = False
     if DEBUG:
-        text = "".join(open("./samples/simple.qk").readlines())
+        text = "".join(open("./test/binary_ops.qk").readlines())
     else:
         text = "".join(args.source.readlines())
     ( ast, tree ) = generate_ast(text)

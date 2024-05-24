@@ -1,0 +1,23 @@
+a = true;
+b = false;
+
+"a = ".print();
+a.print();
+"\n".print();
+
+"b = ".print();
+b.print();
+"\n".print();
+
+"a or b = ".print();
+(a or b).print();
+"\n".print();
+
+"a and b = ".print();
+(a and b).print();
+"\n".print();
+
+"not a = ".print();
+(not a).print();
+"\n".print();
+

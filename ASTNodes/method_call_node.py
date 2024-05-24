@@ -32,7 +32,7 @@ class MethodCallNode(ASTNode):
         self.receiver_type = reciever_type
         if self.name == _master_record[CURRENT_METHOD] and reciever_type == _master_record[CURRENT_CLASS]:
             _master_record[reciever_type][METHODS][self.name][RECURSIVE] = True
-        if self.name not in _master_record[f"{reciever_type}"][METHODS].keys() and self.name != _master_record[CURRENT_METHOD]:
+        if self.name not in _master_record[reciever_type][METHODS].keys() and self.name != _master_record[CURRENT_METHOD]:
             raise ValueError(f"Cannot find {self.str()} in {reciever_type} class")
         return {f"{self.str()}": _master_record[f"{reciever_type}"][METHODS][f"{self.name.__str__()}"][RET]}
     

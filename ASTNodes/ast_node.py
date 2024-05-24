@@ -10,7 +10,7 @@ def retrieve_type(n: "ASTNode", _master_record: dict):
     try:
         if n.__getattribute__("name") and n.__getattribute__("name") in inf_type.keys():
             return inf_type[n.__getattribute__("name")]
-
+        raise Exception
     except:
         if n.str() in inf_type.keys():
             return inf_type[n.str()]

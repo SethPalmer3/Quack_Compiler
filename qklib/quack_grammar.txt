@@ -65,6 +65,7 @@ _cond: expr
 ?sum: product
    | sum "+" product -> add
    | sum "-" product -> sub
+   | "-" sum -> negation
 
 ?product: factor
       | product "*" factor -> mul

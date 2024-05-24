@@ -1,37 +1,116 @@
-.class binary_ops:Obj
+.class arithmetic:Obj
 .method $constructor
-.local a,b
+.local x,y
 enter
-const true
-store a
-const false
-store b
-const true
-load a
-jump_if short_or5
+const 1
+store x
+const 2
+store y
+const "x = "
+call String:print
 pop
-load b
-short_or5:
+load x
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "y = "
+call String:print
+pop
+load y
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "x + y = "
+call String:print
+pop
+load y
+load x
+call Int:plus
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "x - y = "
+call String:print
+pop
+load y
+load x
+call Int:minus
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "x * y = "
+call String:print
+pop
+load y
+load x
+call Int:times
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "x / y = "
+call String:print
+pop
+load y
+load x
+call Int:divide
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "x < y = "
+call String:print
+pop
+load y
+load x
+call Int:less
 call Bool:print
 pop
 const "\n"
 call String:print
 pop
-const false
-load a
-jump_ifnot short_and6
+const "x > y = "
+call String:print
 pop
-load b
-short_and6:
+load y
+load x
+call Int:greater
 call Bool:print
 pop
 const "\n"
 call String:print
 pop
-const false
-store a
-call Bool:equal
-call Bool:print
+const "-x = "
+call String:print
+pop
+load x
+const 0
+call Int:minus
+call Int:print
+pop
+const "\n"
+call String:print
+pop
+const "-y = "
+call String:print
+pop
+load y
+const 0
+call Int:minus
+call Int:print
+pop
+const "\n"
+call String:print
 pop
 load $
 return 0

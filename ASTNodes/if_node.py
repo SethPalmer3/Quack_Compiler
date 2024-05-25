@@ -28,6 +28,8 @@ class IfStmtNode(ASTNode):
         return {}
     
     def gen_code(self, code: list[str]):
+        if retrieve_type(self.cond, util.MR) != "Bool":
+            raise TypeError(f"If statement excpected a boolean expression")
         self.cond.r_eval(code) # Evaluate condition
         code.append(f"jump_ifnot {self.else_label}") # Go to else if false
         self.thenpart.gen_code(code) # continue with if part if true

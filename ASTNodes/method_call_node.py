@@ -37,8 +37,14 @@ class MethodCallNode(ASTNode):
         return {f"{self.str()}": _master_record[f"{reciever_type}"][METHODS][f"{self.name.__str__()}"][RET]}
     
     def gen_code(self, code: list[str]):
-        for p in self.params: # Load all parameters before call
-            p.r_eval(code)
+        method_class = retrieve_type(self.receiver, util.MR)
+        method_params = util.MR[method_class][METHODS][self.name][PARAMS]
+        for method_param, given_param in zip(method_params, self.params): # Load all parameters before call
+            given_param_type = retrieve_type(given_param, util.MR) 
+            if method_param == given_param_type:
+                given_param.r_eval(code)
+            else:
+                raise TypeError(f"Method {self.name} excpected parameter type {method_param} but got {given_param_type}")
         if isinstance(self.receiver, ClassNode):  # Instantiate a class
             util.MR[CURRENT_METHOD_ARITY] += 1
             code.append(f"new {self.receiver.name}")

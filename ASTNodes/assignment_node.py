@@ -18,12 +18,18 @@ class AssignmentNode(ASTNode):
     def __str__(self):
         if self.assign_type is None:
             return f"{ZERO_SPACE_CHAR}{self.l_expr.__str__()} = {remove_zero_size_char(self.rhs.__str__())}"
-        return f"{ZERO_SPACE_CHAR}{self.l_expr.__str__()}: {self.assign_type} = {remove_zero_size_char(self.rhs.__str__())}"
+        cc = util.MR[CURRENT_CLASS]
+        cm = util.MR[CURRENT_METHOD]
+        try:
+            assignment_type = util.MR[cc][METHODS][cm][BODY][self.l_expr.str()]
+        except:
+            assignment_type = util.MR[cc][METHODS][cm][PARAMS][self.l_expr.str()]
+
+        return f"{ZERO_SPACE_CHAR}{self.l_expr.__str__()}: {assignment_type} = {remove_zero_size_char(self.rhs.__str__())}"
     
     def infer_type(self, _master_record: dict = ...) -> dict:
 
         if self.assign_type:
-            # TODO: Add check for declared type and given rhs
             return {self.l_expr.str(): self.assign_type.__str__()}
         elif self.l_expr.str() in _master_record[TEMP].keys():
             self.assign_type = _master_record[TEMP][f"{self.l_expr.str()}"]

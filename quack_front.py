@@ -254,7 +254,7 @@ def main():
     if args.run:
         DEBUG = False
     if DEBUG:
-        text = "".join(open("./test/binary_ops.qk").readlines())
+        text = "".join(open("./samples/simple.qk").readlines())
     else:
         text = "".join(args.source.readlines())
     ( ast, tree ) = generate_ast(text)

@@ -48,6 +48,7 @@ class MethodNode(ASTNode):
                 if isinstance(stmt, AssignmentNode):
                     _master_record[current_class][METHODS][self.name][BODY].update(loc_types)
                     _master_record[TEMP].update(loc_types)
+        _master_record[current_class][METHODS][self.name][BODY] = _master_record[TEMP]
         return _master_record[current_class][METHODS][self.name]
     
     def gen_code(self, code: list[str]):
